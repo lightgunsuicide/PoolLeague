@@ -1,8 +1,7 @@
 ﻿using System;
+using LeagueAPI.Application.Dtos.Interfaces;
 
-using LeagueAPI.Dtos.Interfaces;
-
-namespace LeagueAPI.Dtos
+namespace LeagueAPI.Application.Dtos
 {
     public class GameDto : IGame
     {

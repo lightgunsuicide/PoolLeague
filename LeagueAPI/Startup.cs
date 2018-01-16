@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeagueAPI.Application.Services;
+using LeagueAPI.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +25,10 @@ namespace LeagueAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IPlayerService, PlayerService>();
             services.AddMvc();
+            services.AddOptions();
+            services.Configure<MongoSettings>(Configuration.GetSection("MongoSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -19,7 +19,9 @@
 
   <ItemGroup>
     <Folder Include="AcceptanceTests\Steps\" />
+    <Folder Include="Domain\UnitTests\" />
     <Folder Include="IntegrationTests\" />
+    <Folder Include="Repository\UnitTests\" />
   </ItemGroup>
 
   <ItemGroup>
