@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MongoDB;
 using LeagueAPI.Application.Dtos;
 using LeagueAPI.Configuration;
-using LeagueAPI.Domain.Entities;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -15,9 +14,9 @@ namespace LeagueAPI.Repository
 {
     public class PlayerRepository : IRepository<PlayerDto>
     {
-        IMongoClient _client;
-        IMongoDatabase _database;
-        IMongoCollection<BsonDocument> _collection;
+        private readonly IMongoClient _client;
+        private readonly IMongoDatabase _database;
+        private readonly IMongoCollection<BsonDocument> _collection;
 
         public PlayerRepository(IOptions<MongoSettings> settings)
         {

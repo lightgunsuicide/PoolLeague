@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Services;
 using LeagueAPI.Configuration;
+using LeagueAPI.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,7 @@ namespace LeagueAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IPlayerService, PlayerService>();
+            services.AddTransient<IRepository<PlayerDto>, PlayerRepository>();
             services.AddMvc();
             services.AddOptions();
             services.Configure<MongoSettings>(Configuration.GetSection("MongoSettings"));
