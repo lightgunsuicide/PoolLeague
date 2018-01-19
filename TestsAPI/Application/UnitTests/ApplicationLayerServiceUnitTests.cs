@@ -26,21 +26,6 @@ namespace TestsAPI.Application.UnitTests
             result.PlayerId.Should().NotBeEmpty();       
         }
 
-        [Fact]
-        public void GameOutcome()
-        {
-            //Arrange
-            var gameService = new GameService(new Mock<IRepository<IPlayer>>().Object);
-            var winner = "Lorem Ipsum";
-            var loser = " Dolor Sit Amet";
-
-            //Act
-            var game = gameService.Add(winner, loser);
-
-            //Assert
-            game.Winner.Should().Be(winner);
-            game.Loser.Should().Be(loser);
- 
-        }
+  
     }
 }

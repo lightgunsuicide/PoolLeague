@@ -26,3 +26,4 @@ namespace TestsAPI.Application.IntegrationTests
             game.Loser.Should().Be(loser);
         }
     }
+}
