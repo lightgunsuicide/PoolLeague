@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LeagueAPI.Application.Dtos.Interfaces;
 
 namespace LeagueAPI.Application.Services
 {
     public interface IGameService
     {
-        Guid Add(List<string> players, string winner);
+        IGame Add(string winner, string loser);
         bool Remove(string userToDelete);
         bool Update(string userToUpdate);
     }
