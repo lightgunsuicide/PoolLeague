@@ -1,6 +1,4 @@
-﻿using System;
-using FluentAssertions;
-using FluentAssertions.Primitives;
+﻿using FluentAssertions;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
 using LeagueAPI.Repository;
@@ -28,15 +26,6 @@ namespace TestsAPI.Application.UnitTests
             result.PlayerId.Should().NotBeEmpty();       
         }
 
-        [Fact]
-        public void PlayerLoss()
-        {
-
-        }
-
-        [Fact]
-        public void PlayerWin()
-        {
-        }
+  
     }
 }

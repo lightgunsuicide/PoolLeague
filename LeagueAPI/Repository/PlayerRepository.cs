@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using MongoDB;
 using LeagueAPI.Application.Dtos;
 using LeagueAPI.Configuration;
-using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Bson.Serialization;
+using LeagueAPI.Application.Dtos.Interfaces;
 
 namespace LeagueAPI.Repository
 {
-    public class PlayerRepository : IRepository<PlayerDto>
+    public class PlayerRepository : IRepository<IPlayer>
     {
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _database;
@@ -29,7 +27,7 @@ namespace LeagueAPI.Repository
             _collection = _database.GetCollection<BsonDocument>("players");
         }
 
-        public void Add(PlayerDto newPlayer)
+        public void Add(IPlayer newPlayer)
         {
             var playerDocument = new BsonDocument();
             playerDocument.Add("Id", newPlayer.PlayerId)
@@ -39,19 +37,56 @@ namespace LeagueAPI.Repository
             _collection.InsertOne(playerDocument);  
         }
 
-        public PlayerDto FindById(Guid id)
+        public IPlayer FindById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(PlayerDto id)
+        public IPlayer FindByUsername(string username) {
+
+            var filter = new BsonDocument("username", username);
+            var player = _collection.Find(filter).Single();
+
+            var deserialisedPlayer = BsonSerializer.Deserialize<PlayerDto>(player);
+
+            return deserialisedPlayer;
+        }
+
+        public void Remove(IPlayer id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(PlayerDto name)
+        public void Update(IGame game)
         {
-            throw new NotImplementedException();
+            UpdateLoser(game);
+            UpdateWinner(game);
+        }
+
+        public void UpdateLoser(IGame game) {
+
+            var loseFilter = new BsonDocument("Id", game.Loser);
+            var losingPlayer = _collection.Find(loseFilter).Single();
+            var deserialisedLoser = BsonSerializer.Deserialize<PlayerDto>(losingPlayer);
+
+            var builder = Builders<BsonDocument>.Filter;
+            var filter = builder.Eq("_id", game.Loser);
+            var updateLosses = Builders<BsonDocument>.Update.Set("Losses", deserialisedLoser.Losses++);
+
+            _collection.UpdateOne(filter, updateLosses);
+        }
+
+        public void UpdateWinner(IGame game) {
+            var winFilter = new BsonDocument("Id", game.Winner);
+            var winningPlayer = _collection.Find(winFilter).Single();
+            var deserialisedWinner = BsonSerializer.Deserialize<PlayerDto>(winningPlayer);
+
+            var builder = Builders<BsonDocument>.Filter;
+            var filter = builder.Eq("_id", game.Loser);
+            var updateWins = Builders<BsonDocument>.Update.Set("Wins", deserialisedWinner.Wins++);
+
+            _collection.UpdateOne(filter, updateWins);
+
         }
     }
 }
