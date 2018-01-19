@@ -1,6 +1,4 @@
-﻿using System;
-using FluentAssertions;
-using FluentAssertions.Primitives;
+﻿using FluentAssertions;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
 using LeagueAPI.Repository;
@@ -29,14 +27,20 @@ namespace TestsAPI.Application.UnitTests
         }
 
         [Fact]
-        public void PlayerLoss()
+        public void GameOutcome()
         {
+            //Arrange
+            var gameService = new GameService(new Mock<IRepository<IPlayer>>().Object);
+            var winner = "Lorem Ipsum";
+            var loser = " Dolor Sit Amet";
 
-        }
+            //Act
+            var game = gameService.Add(winner, loser);
 
-        [Fact]
-        public void PlayerWin()
-        {
+            //Assert
+            game.Winner.Should().Be(winner);
+            game.Loser.Should().Be(loser);
+ 
         }
     }
 }

@@ -6,6 +6,6 @@ namespace LeagueAPI.Application.Dtos.Interfaces
     {
          Guid GameID { get; set; }
          Guid Winner { get; set; }
-         Guid Losser { get; set; }
+         Guid Loser { get; set; }
     }
 }
