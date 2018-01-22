@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using LeagueAPI.Application.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeagueAPI.Application.Controllers
@@ -19,11 +20,13 @@ namespace LeagueAPI.Application.Controllers
         [HttpPost("/addplayer")]
         public HttpResponseMessage AddPlayer([FromBody]string username)
         {
-            _playerService.Add(username); 
+            _playerService.Add(username);
 
-            var response = new HttpResponseMessage();
-            response.StatusCode = HttpStatusCode.Created;
-            response.Content = new StringContent(string.Format("New user {0} /n created", username));
+            var response = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.Created,
+                Content = new StringContent(string.Format("New user {0} created", username))
+            };
 
             return response;
         }
