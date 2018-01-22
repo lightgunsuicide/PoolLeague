@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LeagueAPI.Application.Dtos;
 using LeagueAPI.Configuration;
@@ -12,19 +13,21 @@ namespace LeagueAPI.Repository
 {
     public class PlayerRepository : IRepository<IPlayer>
     {
-        private readonly IMongoClient _client;
-        private readonly IMongoDatabase _database;
         private readonly IMongoCollection<BsonDocument> _collection;
 
         public PlayerRepository(IOptions<MongoSettings> settings)
         {
             var connectionUri = settings.Value.connectionUri;
-            var connectionPort = settings.Value.connectionPort;
-            
+            var connectionPort = settings.Value.connectionPort;   
             var connectionString = connectionUri + ":" + connectionPort; 
-            _client = new MongoClient(connectionString);
-            _database = _client.GetDatabase(settings.Value.mongoDataBase);
-            _collection = _database.GetCollection<BsonDocument>("players");
+            IMongoClient client = new MongoClient(connectionString);
+            var database = client.GetDatabase(settings.Value.mongoDataBase);
+            _collection = database.GetCollection<BsonDocument>("players");
+        }
+
+        public IList<IPlayer> FindAll()
+        {
+            throw new NotImplementedException();
         }
 
         public void Add(IPlayer newPlayer)
@@ -37,6 +40,7 @@ namespace LeagueAPI.Repository
             _collection.InsertOne(playerDocument);  
         }
 
+        
         public IPlayer FindById(Guid id)
         {
             throw new NotImplementedException();
@@ -64,7 +68,6 @@ namespace LeagueAPI.Repository
         }
 
         public void UpdateLoser(IGame game) {
-
             var loseFilter = new BsonDocument("Id", game.Loser);
             var losingPlayer = _collection.Find(loseFilter).Single();
             var deserialisedLoser = BsonSerializer.Deserialize<PlayerDto>(losingPlayer);
