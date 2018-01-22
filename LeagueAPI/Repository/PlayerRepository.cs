@@ -25,40 +25,43 @@ namespace LeagueAPI.Repository
             _collection = database.GetCollection<BsonDocument>("players");
         }
 
-        public IList<IPlayer> FindAll()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Add(IPlayer newPlayer)
         {
             var playerDocument = new BsonDocument();
             playerDocument.Add("Id", newPlayer.PlayerId)
                 .Add("name", newPlayer.Username)
                 .Add("wins", 0).Add("losses", 0); 
-
             _collection.InsertOne(playerDocument);  
         }
-
         
         public IPlayer FindById(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IPlayer FindByUsername(string username) {
-
-            var filter = new BsonDocument("username", username);
+            var filter = new BsonDocument("_id", id);
             var player = _collection.Find(filter).Single();
-
-            var deserialisedPlayer = BsonSerializer.Deserialize<PlayerDto>(player);
-
+            var deserialisedPlayer = BsonSerializer.Deserialize<IPlayer>(player);
             return deserialisedPlayer;
         }
 
-        public void Remove(IPlayer id)
+        public IPlayer FindByUsername(string username) {
+            var filter = new BsonDocument("username", username);
+            var player = _collection.Find(filter).Single();
+            var deserialisedPlayer = BsonSerializer.Deserialize<IPlayer>(player);
+            return deserialisedPlayer;
+        }
+
+        public string Remove(IPlayer player)
         {
-            throw new NotImplementedException();
+            var builder = Builders<BsonDocument>.Filter;
+            var filter = builder.Eq("_id", player.PlayerId);
+            try
+            {
+                _collection.DeleteOne(filter);   
+            }
+            catch (Exception e)
+            {
+                return "Success: Player " + player.Username + " could be be removed. Error: /n" + e;
+            }
+            return "Fail: Player " + player.Username + " has been removed";
         }
 
         public void Update(IGame game)
@@ -68,9 +71,9 @@ namespace LeagueAPI.Repository
         }
 
         public void UpdateLoser(IGame game) {
-            var loseFilter = new BsonDocument("Id", game.Loser);
+            var loseFilter = new BsonDocument("_id", game.Loser);
             var losingPlayer = _collection.Find(loseFilter).Single();
-            var deserialisedLoser = BsonSerializer.Deserialize<PlayerDto>(losingPlayer);
+            var deserialisedLoser = BsonSerializer.Deserialize<IPlayer>(losingPlayer);
 
             var builder = Builders<BsonDocument>.Filter;
             var filter = builder.Eq("_id", game.Loser);
@@ -80,16 +83,15 @@ namespace LeagueAPI.Repository
         }
 
         public void UpdateWinner(IGame game) {
-            var winFilter = new BsonDocument("Id", game.Winner);
+            var winFilter = new BsonDocument("_id", game.Winner);
             var winningPlayer = _collection.Find(winFilter).Single();
-            var deserialisedWinner = BsonSerializer.Deserialize<PlayerDto>(winningPlayer);
+            var deserialisedWinner = BsonSerializer.Deserialize<IPlayer>(winningPlayer);
 
             var builder = Builders<BsonDocument>.Filter;
             var filter = builder.Eq("_id", game.Loser);
             var updateWins = Builders<BsonDocument>.Update.Set("Wins", deserialisedWinner.Wins++);
 
             _collection.UpdateOne(filter, updateWins);
-
         }
     }
 }

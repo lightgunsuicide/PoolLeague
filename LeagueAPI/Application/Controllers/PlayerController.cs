@@ -1,5 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.IO;
+using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization.Json;
+using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,29 +35,46 @@ namespace LeagueAPI.Application.Controllers
             return response;
         }
 
-        // GET: api/Player/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public HttpResponseMessage FindPlayerById(Guid id)
         {
-            return "value";
+            var stream = new MemoryStream();
+            var serialised = new DataContractJsonSerializer(typeof(IPlayer));
+            serialised.WriteObject(stream, _playerService.SearchById(id));
+            var sr = new StreamReader(stream);
+            var playerJson = sr.ReadToEnd();
+            var response = new HttpResponseMessage();
+            response.Content = new StringContent(playerJson);
+            return response;
         }
-        
-        // POST: api/Player
-        [HttpPost]
-        public void Post([FromBody]string value)
+
+        [HttpGet("{id}")]
+        public HttpResponseMessage FindPlayerByUsername(string username)
         {
+            var stream = new MemoryStream();
+            var serialised  = new DataContractJsonSerializer(typeof(IPlayer));
+            serialised.WriteObject(stream,_playerService.SearchByUsername(username));
+            var sr = new StreamReader(stream);
+            var playerJson = sr.ReadToEnd();
+            var response = new HttpResponseMessage();            
+            response.Content = new StringContent(playerJson);
+            return response;
         }
-        
-        // PUT: api/Player/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
+
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public HttpResponseMessage DeletePlayer(string username)
         {
+            var responseText = _playerService.Remove(username);
+
+            var response = new HttpResponseMessage();
+            response.Content = new StringContent(responseText);
+
+            if (responseText.Contains("Success"))
+            {
+                return response;
+            }
+            response.StatusCode = HttpStatusCode.InternalServerError;
+            return response;
         }
     }
 }

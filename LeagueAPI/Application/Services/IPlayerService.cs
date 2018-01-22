@@ -9,7 +9,9 @@ namespace LeagueAPI.Application.Services
     public interface IPlayerService
     {
         IPlayer Add(string newUser);
-        bool Remove(string userToDelete);
+        string Remove(string userToDelete);
         bool Update(string userToUpdate);
+        IPlayer SearchById(Guid id);
+        IPlayer SearchByUsername(string username);
     }
 }

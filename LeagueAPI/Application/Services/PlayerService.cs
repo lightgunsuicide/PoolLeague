@@ -27,14 +27,31 @@ namespace LeagueAPI.Application.Services
             return playerToAdd;
         }
 
-        public bool Remove(string userToDelete)
+        public void Remove(IPlayer userToDelete)
         {
-            throw new NotImplementedException();
+           _repository.Remove(userToDelete);
         }
 
         public bool Update(string userToUpdate)
         {
             throw new NotImplementedException();
         }
+
+        public IPlayer SearchById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPlayer SearchByUsername(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Remove(string userToDelete)
+        {
+            throw new NotImplementedException();
+        }
+
+     
     }
 }

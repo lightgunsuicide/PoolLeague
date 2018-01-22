@@ -4,8 +4,6 @@ namespace LeagueAPI.Application.Services
 {
     public interface IGameService
     {
-        IGame Add(string winner, string loser);
-        bool Remove(string userToDelete);
-        bool Update(string userToUpdate);
+        IGame Add(string winner, string loser); 
     }
 }
