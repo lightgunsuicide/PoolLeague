@@ -16,8 +16,8 @@ namespace LeagueAPI.Application.Services
         public IGame Add(string winner, string loser)
         {
             var id = Guid.NewGuid();
-            var winnerDetails = GetWinner(winner);
-            var loserDetails = GetLoser(loser);
+            var winnerDetails = _repository.FindByUsername(winner); 
+            var loserDetails = _repository.FindByUsername(loser);
             var winnerId = winnerDetails.PlayerId;
             var loserId = loserDetails.PlayerId;
 
@@ -26,26 +26,7 @@ namespace LeagueAPI.Application.Services
             _repository.Update(gameDetails);
 
             return gameDetails;
-        }
-
-        private Guid GetLoserId(string loser)
-        {
-          return  _repository.FindByUsername(loser).PlayerId;
-        }
-
-        private Guid GetWinnerId(string winner)
-        {
-            return _repository.FindByUsername(winner).PlayerId;
-        }
-
-        private IPlayer GetWinner(string winner) {
-            return _repository.FindByUsername(winner);
-        }
-
-        private IPlayer GetLoser(string loser)
-        {
-            return _repository.FindByUsername(loser);
-        }
+        } 
 
         public bool Remove(string userToDelete)
         {
