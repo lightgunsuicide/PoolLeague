@@ -4,7 +4,9 @@ using System.Net;
 using System.Text;
 using FluentAssertions;
 using LeagueAPI.Application.Controllers;
+using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Rest;
 using Moq;
 using Xunit;
@@ -29,6 +31,86 @@ namespace TestsAPI.Application.UnitTests
             responseContentResult.Should().Be("New user Lorem Ipsum created");
         }
 
+        [Fact]
+        public void FindPlayerById()
+        {
+            //Arrange
+            var id = new Guid();
+            var player = new PlayerDto(){PlayerId = id, Username = "Lorem Ipsum", GamesPlayed = 12, Losses = 4, Wins = 8};
+
+            var mockService = new Mock<IPlayerService>();
+            mockService.Setup(x => x.SearchById(id)).Returns(player);
+
+            var playerController = new PlayerController(mockService.Object);
+             
+            //Act
+            var returnedPlayer = playerController.FindPlayerById(id);
+            var okObjectResult = returnedPlayer as OkObjectResult;
+
+            //Assert
+            okObjectResult.Value.Should().Be(player);
+        }
+
+        [Fact]
+        public void FindPlayerByUsername()
+        {
+            //Arrange
+            var id = new Guid();
+            var player = new PlayerDto() { PlayerId = id, Username = "Lorem Ipsum", GamesPlayed = 12, Losses = 4, Wins = 8 };
+            var nameSearched = "Lorem Ipsum";
+
+            var mockService = new Mock<IPlayerService>();
+            mockService.Setup(x => x.SearchByUsername(nameSearched)).Returns(player);
+
+            var playerController = new PlayerController(mockService.Object);
+
+            //Act
+            var returnedPlayer = playerController.FindPlayerByUsername(nameSearched);
+            var okObjectResult = returnedPlayer as OkObjectResult;
+
+            //Assert
+            okObjectResult.Value.Should().Be(player);
+        }
+
+        [Fact]
+        public void RemovePlayerSuccessfully()
+        {
+            //Arrange
+            var player = "Lorem Ipsum";
+
+            var mockService = new Mock<IPlayerService>();
+            mockService.Setup(x => x.Remove(player)).Returns("Success: Player " + player + " has been removed");
+
+            var playerController = new PlayerController(mockService.Object);
+
+            //Act
+            var result = playerController.DeletePlayer(player);
+            var okObjectResult = result as OkObjectResult;
+            var content = okObjectResult.Value as ContentResult;
+
+            //Assert
+            content.Content.Should().Be("Success: Player " + player + " has been removed");
+        }
+
+        [Fact]
+        public void RemovePlayerUnsuccessfully()
+        {
+            //Arrange
+            var player = "Falsum Hominem";
+
+            var mockService = new Mock<IPlayerService>();
+            mockService.Setup(x => x.Remove(player)).Returns("Fail: Player " + player + " could be be removed.");
+
+            var playerController = new PlayerController(mockService.Object);
+
+            //Act
+            var result = playerController.DeletePlayer(player);
+            var notFoundObjectResult = result as NotFoundObjectResult;
+
+            //Assert
+            notFoundObjectResult.Value.Should().Be("Fail: Player " + player + " could be be removed.");
+        }
+    
         [Fact]
         public void AddGame()
         {

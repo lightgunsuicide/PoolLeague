@@ -47,9 +47,59 @@ namespace TestsAPI.Application.UnitTests
             result.Should().Be("Success: Player f00bar has been removed");
         }
 
-        public class ApplicationLayerServiceIntegrationTests
+        [Fact]
+        public void SearchForPlayerById()
         {
-            [Fact]
+            //Arrange
+            var playerToFind = new PlayerDto()
+            {
+                PlayerId = new Guid(),
+                Username = "Falsum Hominem",
+                Losses = 1,
+                Wins = 2,
+                GamesPlayed = 2
+            };
+
+            var mockRepo = new Mock<IRepository<IPlayer>>();
+            mockRepo.Setup(x => x.FindById(playerToFind.PlayerId)).
+                Returns(playerToFind);
+
+            var playerService = new PlayerService(mockRepo.Object);
+
+            //Act
+            var playerReturned = playerService.SearchById(playerToFind.PlayerId);
+
+            //Assert
+            playerReturned.Should().Be(playerToFind);
+        }
+
+        [Fact]
+        public void SearchForPlayerByUsername()
+        {
+            //Arrange
+            var playerToFind = new PlayerDto()
+            {
+                PlayerId = new Guid(),
+                Username = "Falsum Hominem",
+                Losses = 1,
+                Wins = 2,
+                GamesPlayed = 2
+            };
+
+            var mockRepo = new Mock<IRepository<IPlayer>>();
+            mockRepo.Setup(x => x.FindByUsername(playerToFind.Username)).
+                Returns(playerToFind);
+
+            var playerService = new PlayerService(mockRepo.Object);
+
+            //Act
+            var playerReturned = playerService.SearchByUsername(playerToFind.Username);
+
+            //Assert
+            playerReturned.Should().Be(playerToFind);
+        }
+
+          [Fact]
             public void GameOutcome()
             {
                 //Arrange
@@ -76,7 +126,6 @@ namespace TestsAPI.Application.UnitTests
                 //Assert
                 game.Winner.Should().Be(playerOne.PlayerId);
                 game.Loser.Should().Be(playerOne.PlayerId);
-            }
-        }
-    }
+         }
+     }
 }
