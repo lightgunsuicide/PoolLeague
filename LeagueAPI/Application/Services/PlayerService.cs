@@ -21,37 +21,24 @@ namespace LeagueAPI.Application.Services
         {
             var playersId = Guid.NewGuid();
             var playerToAdd = new PlayerDto(){PlayerId = playersId, Username  = newUser, Wins = 0, Losses = 0, GamesPlayed = 0};
-
             _repository.Add(playerToAdd);
-
             return playerToAdd;
-        }
-
-        public void Remove(IPlayer userToDelete)
-        {
-           _repository.Remove(userToDelete);
-        }
-
-        public bool Update(string userToUpdate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IPlayer SearchById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IPlayer SearchByUsername(string username)
-        {
-            throw new NotImplementedException();
         }
 
         public string Remove(string userToDelete)
         {
-            throw new NotImplementedException();
+           return _repository.Remove(userToDelete);
         }
 
-     
+        public IPlayer SearchById(Guid id)
+        {
+            return _repository.FindById(id);
+        }
+
+        public IPlayer SearchByUsername(string username)
+        {
+            return _repository.FindByUsername(username);
+        }
+
     }
 }

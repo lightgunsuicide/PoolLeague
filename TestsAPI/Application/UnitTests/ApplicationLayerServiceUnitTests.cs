@@ -27,6 +27,26 @@ namespace TestsAPI.Application.UnitTests
             result.Wins.Should().Be(0);
             result.PlayerId.Should().NotBeEmpty();       
         }
+
+        [Fact]
+        public void RemovePlayer()
+        {
+            //Arrange
+            var playerToDelete = "f00bar";
+            var returnText = "Success: Player f00bar has been removed";
+            var mockRepo = new Mock<IRepository<IPlayer>>();
+            mockRepo.Setup(x => x.Remove(playerToDelete)).
+                Returns(returnText);
+
+            var playerService = new PlayerService(mockRepo.Object);
+           
+            //Act
+            var result = playerService.Remove(playerToDelete);
+
+            //Assert
+            result.Should().Be("Success: Player f00bar has been removed");
+        }
+
         public class ApplicationLayerServiceIntegrationTests
         {
             [Fact]

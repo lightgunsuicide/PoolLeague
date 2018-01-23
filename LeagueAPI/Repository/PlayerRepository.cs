@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using LeagueAPI.Application.Dtos;
 using LeagueAPI.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -49,19 +47,19 @@ namespace LeagueAPI.Repository
             return deserialisedPlayer;
         }
 
-        public string Remove(IPlayer player)
+        public string Remove(string player)
         {
             var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Eq("_id", player.PlayerId);
+            var filter = builder.Eq("username", player);
             try
             {
                 _collection.DeleteOne(filter);   
             }
             catch (Exception e)
             {
-                return "Success: Player " + player.Username + " could be be removed. Error: /n" + e;
+                return "Fail: Player " + player + " could be be removed. Error: /n" + e;
             }
-            return "Fail: Player " + player.Username + " has been removed";
+            return "Success: Player " + player + " has been removed";
         }
 
         public void Update(IGame game)

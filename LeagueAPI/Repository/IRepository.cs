@@ -11,7 +11,7 @@ namespace LeagueAPI.Repository
         TEntity FindById(Guid id);
         TEntity FindByUsername(string username);
         void Add(TEntity entity);
-        string Remove(TEntity player);
+        string Remove(string player);
         void Update(IGame entity);
         void UpdateLoser(IGame game);
         void UpdateWinner(IGame game);

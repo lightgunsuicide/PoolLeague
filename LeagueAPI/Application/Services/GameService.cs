@@ -27,6 +27,5 @@ namespace LeagueAPI.Application.Services
 
             return gameDetails;
         } 
-
     }
 }
