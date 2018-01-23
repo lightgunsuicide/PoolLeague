@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LeagueAPI.Application.Controllers
 {
     [Produces("application/json")]
-    [Route("api/games")]
+    [Route("api/Games")]
     public class GamesController : Controller
     {
         private IGameService _gameService;

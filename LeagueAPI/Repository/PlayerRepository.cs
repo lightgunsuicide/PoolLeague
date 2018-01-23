@@ -106,7 +106,7 @@ namespace LeagueAPI.Repository
         {
             IMongoCollection<IPlayer> collection = _database.GetCollection<IPlayer>("players");
 
-            var allPlayers = collection.Find(x => true).ToList();
+            var allPlayers = collection.Find(x => true).SortByDescending(w => w.Wins).ToList();
             return allPlayers;
         }
     }
