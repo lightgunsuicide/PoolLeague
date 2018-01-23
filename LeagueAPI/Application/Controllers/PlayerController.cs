@@ -1,8 +1,14 @@
-﻿using System.Net;
+﻿using System;
+using System.IO;
+using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization.Json;
+using LeagueAPI.Application.Dtos;
+using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 
 namespace LeagueAPI.Application.Controllers
 {
@@ -27,33 +33,32 @@ namespace LeagueAPI.Application.Controllers
                 StatusCode = HttpStatusCode.Created,
                 Content = new StringContent(string.Format("New user {0} created", username))
             };
-
             return response;
         }
 
-        // GET: api/Player/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public ActionResult FindPlayerById(Guid id)
         {
-            return "value";
+            return Ok(_playerService.SearchById(id));
         }
-        
-        // POST: api/Player
-        [HttpPost]
-        public void Post([FromBody]string value)
+
+        [HttpGet("{id}")]
+        public ActionResult FindPlayerByUsername(string username)
         {
+            return Ok(_playerService.SearchByUsername(username));
         }
-        
-        // PUT: api/Player/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
+
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult DeletePlayer(string username)
         {
+            var responseText = _playerService.Remove(username);
+
+            if (responseText.Contains("Success"))
+            {
+                return Ok(Content(responseText));
+            }
+
+            return NotFound(responseText);
         }
     }
 }
