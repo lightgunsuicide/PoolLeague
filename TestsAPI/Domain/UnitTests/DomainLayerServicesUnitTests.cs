@@ -8,6 +8,7 @@ using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Domain.Services;
 using LeagueAPI.Repository;
+using TestsAPI.Helpers;
 using Xunit;
 
 namespace TestsAPI.Domain.UnitTests
@@ -17,30 +18,13 @@ namespace TestsAPI.Domain.UnitTests
     {
 
         private  List<IPlayer> _players;
-
-        private void PopulateListOfPlayers()
-        {
-            var player = new PlayerDto();
-            _players = new List<IPlayer>();
-            var rand = new Random(100);
-
-            for (int i =0; i < 10; i++)
-            {
-                player.PlayerId = new Guid();
-                player.GamesPlayed = rand.Next(1, 10);
-                player.Username = rand.Next(1, 100).ToString();
-                player.Losses = rand.Next(1, 100);
-                player.Wins = rand.Next(1, 100);
-
-                _players.Add(player);
-            }
-        }
-
+      
         [Fact]
         public void RetreiveTopTen()
         {
             //Arrange
-            PopulateListOfPlayers();
+            var TestHelpers = new TestHelpers();
+            _players = TestHelpers.PopulateListOfPlayers();
             
             var mockRepo = new Mock<IRepository<IPlayer>>();
             var displayResults = _players.OrderByDescending(x => x.Wins).Take(10).ToList();
@@ -59,7 +43,9 @@ namespace TestsAPI.Domain.UnitTests
         public void FindAllPlayers()
         {
             //Arrange
-            PopulateListOfPlayers();
+            var TestHelpers = new TestHelpers();
+
+            TestHelpers.PopulateListOfPlayers();
 
             var mockRepo = new Mock<IRepository<IPlayer>>();
             var displayResults = _players.ToList();
