@@ -15,5 +15,7 @@ namespace LeagueAPI.Repository
         void Update(IGame entity);
         void UpdateLoser(IGame game);
         void UpdateWinner(IGame game);
+        List<IPlayer> ReturnTopTen();
+        List<IPlayer> FindAll();
     }
 }

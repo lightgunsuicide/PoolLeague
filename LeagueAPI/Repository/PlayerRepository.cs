@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LeagueAPI.Configuration;
 using Microsoft.Extensions.Options;
@@ -12,6 +13,7 @@ namespace LeagueAPI.Repository
     public class PlayerRepository : IRepository<IPlayer>
     {
         private readonly IMongoCollection<BsonDocument> _collection;
+        private readonly IMongoDatabase _database;
 
         public PlayerRepository(IOptions<MongoSettings> settings)
         {
@@ -19,8 +21,8 @@ namespace LeagueAPI.Repository
             var connectionPort = settings.Value.connectionPort;   
             var connectionString = connectionUri + ":" + connectionPort; 
             IMongoClient client = new MongoClient(connectionString);
-            var database = client.GetDatabase(settings.Value.mongoDataBase);
-            _collection = database.GetCollection<BsonDocument>("players");
+            _database = client.GetDatabase(settings.Value.mongoDataBase);
+            _collection = _database.GetCollection<BsonDocument>("players");
         }
 
         public void Add(IPlayer newPlayer)
@@ -90,6 +92,22 @@ namespace LeagueAPI.Repository
             var updateWins = Builders<BsonDocument>.Update.Set("Wins", deserialisedWinner.Wins++);
 
             _collection.UpdateOne(filter, updateWins);
+        }
+
+        public List<IPlayer> ReturnTopTen()
+        {
+            IMongoCollection<IPlayer> collection = _database.GetCollection<IPlayer>("players");
+
+            var topTen = collection.Find(x => true).SortByDescending(w => w.Wins).Limit(10).ToList();
+            return topTen;
+        }
+
+        public List<IPlayer> FindAll()
+        {
+            IMongoCollection<IPlayer> collection = _database.GetCollection<IPlayer>("players");
+
+            var allPlayers = collection.Find(x => true).ToList();
+            return allPlayers;
         }
     }
 }

@@ -1,15 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeagueFrontEnd", "PoolLeague\LeagueFrontEnd.csproj", "{BC8767FB-BD50-4D49-BEA7-8F9B24BCD351}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeagueAPI", "LeagueAPI\LeagueAPI.csproj", "{62E732B2-E66B-423B-BA87-5FF157F3AF6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsAPI", "TestsAPI\TestsAPI.csproj", "{53A8573E-99CA-4E97-A6B4-AED5A95CC521}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsAPI", "TestsAPI\TestsAPI.csproj", "{53A8573E-99CA-4E97-A6B4-AED5A95CC521}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsFrontEnd", "TestsFrontEnd\TestsFrontEnd.csproj", "{97E8F6B5-9E0F-4721-9F60-2EECA146F7CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsFrontEnd", "TestsFrontEnd\TestsFrontEnd.csproj", "{97E8F6B5-9E0F-4721-9F60-2EECA146F7CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsAcceptance", "TestsAcceptance\TestsAcceptance.csproj", "{1A5EC063-4E09-4268-8A0A-1891137858EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFramework", "TestFramework\TestFramework.csproj", "{488F3DB1-A0A0-426B-868F-5D502A2F9075}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{97E8F6B5-9E0F-4721-9F60-2EECA146F7CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97E8F6B5-9E0F-4721-9F60-2EECA146F7CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97E8F6B5-9E0F-4721-9F60-2EECA146F7CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5EC063-4E09-4268-8A0A-1891137858EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5EC063-4E09-4268-8A0A-1891137858EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5EC063-4E09-4268-8A0A-1891137858EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A5EC063-4E09-4268-8A0A-1891137858EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{488F3DB1-A0A0-426B-868F-5D502A2F9075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{488F3DB1-A0A0-426B-868F-5D502A2F9075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{488F3DB1-A0A0-426B-868F-5D502A2F9075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{488F3DB1-A0A0-426B-868F-5D502A2F9075}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
