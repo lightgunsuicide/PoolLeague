@@ -27,15 +27,5 @@ namespace LeagueAPI.Application.Services
 
             return gameDetails;
         } 
-
-        public bool Remove(string userToDelete)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(string userToUpdate)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
