@@ -45,7 +45,7 @@ namespace TestsAPI.Domain.UnitTests
             //Arrange
             var TestHelpers = new TestHelpers();
 
-            TestHelpers.PopulateListOfPlayers();
+            _players = TestHelpers.PopulateListOfPlayers();
 
             var mockRepo = new Mock<IRepository<IPlayer>>();
             var displayResults = _players.ToList();
