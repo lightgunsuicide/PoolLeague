@@ -36,7 +36,7 @@ namespace TestsAPI.Application.UnitTests
         {
             //Arrange
             var id = new Guid();
-            var player = new PlayerDto(){PlayerId = id, Username = "Lorem Ipsum", GamesPlayed = 12, Losses = 4, Wins = 8};
+            var player = new PlayerDto(){ PlayerId = id, Username = "Lorem Ipsum", GamesPlayed = 12, Losses = 4, Wins = 8};
 
             var mockService = new Mock<IPlayerService>();
             mockService.Setup(x => x.SearchById(id)).Returns(player);

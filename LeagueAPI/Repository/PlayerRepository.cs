@@ -19,7 +19,7 @@ namespace LeagueAPI.Repository
         {
             var connectionUri = settings.Value.connectionUri;
             var connectionPort = settings.Value.connectionPort;   
-            var connectionString = connectionUri + ":" + connectionPort; 
+            var connectionString = "mongodb://"+ connectionUri + ":" + connectionPort; 
             IMongoClient client = new MongoClient(connectionString);
             _database = client.GetDatabase(settings.Value.mongoDataBase);
             _collection = _database.GetCollection<BsonDocument>("players");

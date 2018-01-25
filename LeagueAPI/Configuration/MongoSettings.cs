@@ -1,6 +1,6 @@
 ﻿namespace LeagueAPI.Configuration
 {
-    public class MongoSettings
+    public class MongoSettings : IMongoSettings
     {
         public string connectionUri { get; set; }
         public string connectionPort { get; set; }
