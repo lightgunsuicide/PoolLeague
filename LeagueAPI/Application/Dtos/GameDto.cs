@@ -6,7 +6,7 @@ namespace LeagueAPI.Application.Dtos
     public class GameDto : IGame
     {
         public Guid GameID { get; set; }
-        public Guid Winner { get; set; }
-        public Guid Loser { get; set; }       
+        public string Winner { get; set; }
+        public string Loser { get; set; }       
     }
 }

@@ -20,7 +20,7 @@ namespace LeagueAPI.Application.Services
         public IPlayer Add(string newUser)
         {
             var playersId = Guid.NewGuid();
-            var playerToAdd = new PlayerDto(){ PlayerId = playersId, Username  = newUser, Wins = 0, Losses = 0, GamesPlayed = 0};
+            var playerToAdd = new PlayerDto(){ PlayerId = playersId.ToString(), Username  = newUser, Wins = 0, Losses = 0, GamesPlayed = 0};
             _repository.Add(playerToAdd);
             return playerToAdd;
         }
@@ -30,7 +30,7 @@ namespace LeagueAPI.Application.Services
            return _repository.Remove(userToDelete);
         }
 
-        public IPlayer SearchById(Guid id)
+        public IPlayer SearchById(string id)
         {
             return _repository.FindById(id);
         }

@@ -14,10 +14,13 @@ namespace TestsAPI.Helpers
             var player = new PlayerDto();
             _players = new List<IPlayer>();
             var rand = new Random(100);
+            var uniqueId = new Guid();
+            var uniqueString = uniqueId.ToString();
+            
 
             for (int i = 0; i < 10; i++)
             {
-                player.PlayerId = new Guid();
+                player.PlayerId = uniqueString;
                 player.GamesPlayed = rand.Next(1, 10);
                 player.Username = rand.Next(1, 100).ToString();
                 player.Losses = rand.Next(1, 100);

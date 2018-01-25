@@ -35,7 +35,7 @@ namespace TestsAPI.Application.UnitTests
         public void FindPlayerById()
         {
             //Arrange
-            var id = new Guid();
+            var id = new Guid().ToString();
             var player = new PlayerDto(){ PlayerId = id, Username = "Lorem Ipsum", GamesPlayed = 12, Losses = 4, Wins = 8};
 
             var mockService = new Mock<IPlayerService>();
@@ -55,7 +55,7 @@ namespace TestsAPI.Application.UnitTests
         public void FindPlayerByUsername()
         {
             //Arrange
-            var id = new Guid();
+            var id = new Guid().ToString();
             var player = new PlayerDto() { PlayerId = id, Username = "Lorem Ipsum", GamesPlayed = 12, Losses = 4, Wins = 8 };
             var nameSearched = "Lorem Ipsum";
 

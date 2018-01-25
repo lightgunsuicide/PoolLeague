@@ -7,7 +7,7 @@ namespace LeagueAPI.Application.Services
     {
         IPlayer Add(string newUser);
         string Remove(string userToDelete);
-        IPlayer SearchById(Guid id);
+        IPlayer SearchById(string id);
         IPlayer SearchByUsername(string username);
     }
 }

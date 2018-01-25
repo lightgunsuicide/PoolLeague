@@ -34,16 +34,16 @@ namespace LeagueAPI.Repository
             _collection.InsertOne(playerDocument);  
         }
         
-        public IPlayer FindById(Guid id)
+        public IPlayer FindById(string id)
         {
-            var filter = new BsonDocument("_id", id);
+            var filter = new BsonDocument("Id", id);
             var player = _collection.Find(filter).Single();
             var deserialisedPlayer = BsonSerializer.Deserialize<IPlayer>(player);
             return deserialisedPlayer;
         }
 
         public IPlayer FindByUsername(string username) {
-            var filter = new BsonDocument("username", username);
+            var filter = new BsonDocument("name", username);
             var player = _collection.Find(filter).Single();
             var deserialisedPlayer = BsonSerializer.Deserialize<IPlayer>(player);
             return deserialisedPlayer;

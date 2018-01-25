@@ -34,8 +34,8 @@ namespace TestsAPI.Repository.UnitTests
             var playerRepo = new PlayerRepository(settingsFixture.settings);
             var playerToAdd = new PlayerDto()
             {
-                PlayerId =  new Guid("CA761232-ED42-11CE-BACD-00111057B223"), 
-                Username = "Lorem Ipsum",
+                PlayerId =  new Guid("CA761232-ED42-11CE-BACD-00111057B223").ToString(), 
+                Username = "Falsum Hominem",
                 Losses = 0,
                  Wins = 0
             };
@@ -45,6 +45,7 @@ namespace TestsAPI.Repository.UnitTests
 
 
             //Assert            
+            playerRepo.FindById(playerToAdd.PlayerId).Should().Be(playerToAdd);
 
         }
 

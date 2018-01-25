@@ -15,13 +15,13 @@ namespace LeagueAPI.Application.Services
 
         public IGame Add(string winner, string loser)
         {
-            var id = Guid.NewGuid();
+            var id = new Guid();
             var winnerDetails = _repository.FindByUsername(winner); 
             var loserDetails = _repository.FindByUsername(loser);
             var winnerId = winnerDetails.PlayerId;
             var loserId = loserDetails.PlayerId;
 
-            var gameDetails = new GameDto() {GameID = id, Winner = winnerId, Loser = loserId };
+            var gameDetails = new GameDto() { GameID = id, Winner = winnerId, Loser = loserId };
             
             _repository.Update(gameDetails);
 

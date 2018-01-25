@@ -37,7 +37,7 @@ namespace LeagueAPI.Application.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult FindPlayerById(Guid id)
+        public ActionResult FindPlayerById(string id)
         {
             return Ok(_playerService.SearchById(id));
         }

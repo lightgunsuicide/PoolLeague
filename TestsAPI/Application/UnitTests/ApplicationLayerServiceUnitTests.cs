@@ -51,9 +51,12 @@ namespace TestsAPI.Application.UnitTests
         public void SearchForPlayerById()
         {
             //Arrange
+            var uniqueId = new Guid();
+            var uniqueString = uniqueId.ToString();
+
             var playerToFind = new PlayerDto()
             {
-                PlayerId = new Guid(),
+                PlayerId = uniqueString,
                 Username = "Falsum Hominem",
                 Losses = 1,
                 Wins = 2,
@@ -79,7 +82,7 @@ namespace TestsAPI.Application.UnitTests
             //Arrange
             var playerToFind = new PlayerDto()
             {
-                PlayerId = new Guid(),
+                PlayerId = new Guid().ToString(),
                 Username = "Falsum Hominem",
                 Losses = 1,
                 Wins = 2,
@@ -105,7 +108,7 @@ namespace TestsAPI.Application.UnitTests
                 //Arrange
                 var playerOne = new PlayerDto()
                 {
-                    PlayerId = new Guid(),
+                    PlayerId = new Guid().ToString(),
                     Username = "Falsum Hominem",
                     Losses = 1,
                     Wins = 2,
