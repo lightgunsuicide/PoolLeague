@@ -5,7 +5,9 @@ using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
 using LeagueAPI.Repository;
 using Moq;
+using Newtonsoft.Json.Bson;
 using Xunit;
+using BsonObjectId = MongoDB.Bson.BsonObjectId;
 
 namespace TestsAPI.Application.UnitTests
 {
@@ -51,26 +53,26 @@ namespace TestsAPI.Application.UnitTests
         public void SearchForPlayerById()
         {
             //Arrange
-            var uniqueId = new Guid();
+            var uniqueId = new BsonObjectId("1111111");
             var uniqueString = uniqueId.ToString();
 
             var playerToFind = new PlayerDto()
             {
-                PlayerId = uniqueString,
-                Username = "Falsum Hominem",
+                Id = uniqueId,
+                Name = "Falsum Hominem",
                 Losses = 1,
                 Wins = 2,
-                GamesPlayed = 2
+
             };
 
             var mockRepo = new Mock<IRepository<IPlayer>>();
-            mockRepo.Setup(x => x.FindById(playerToFind.PlayerId)).
+            mockRepo.Setup(x => x.FindById(playerToFind.Id.ToString())).
                 Returns(playerToFind);
 
             var playerService = new PlayerService(mockRepo.Object);
 
             //Act
-            var playerReturned = playerService.SearchById(playerToFind.PlayerId);
+            var playerReturned = playerService.SearchById(playerToFind.Id);
 
             //Assert
             playerReturned.Should().Be(playerToFind);
@@ -82,21 +84,19 @@ namespace TestsAPI.Application.UnitTests
             //Arrange
             var playerToFind = new PlayerDto()
             {
-                PlayerId = new Guid().ToString(),
-                Username = "Falsum Hominem",
+                Name = "Falsum Hominem",
                 Losses = 1,
                 Wins = 2,
-                GamesPlayed = 2
             };
 
             var mockRepo = new Mock<IRepository<IPlayer>>();
-            mockRepo.Setup(x => x.FindByUsername(playerToFind.Username)).
+            mockRepo.Setup(x => x.FindByUsername(playerToFind.Name)).
                 Returns(playerToFind);
 
             var playerService = new PlayerService(mockRepo.Object);
 
             //Act
-            var playerReturned = playerService.SearchByUsername(playerToFind.Username);
+            var playerReturned = playerService.SearchByUsername(playerToFind.Name);
 
             //Assert
             playerReturned.Should().Be(playerToFind);

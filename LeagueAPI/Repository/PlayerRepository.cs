@@ -28,8 +28,7 @@ namespace LeagueAPI.Repository
         public void Add(IPlayer newPlayer)
         {
             var playerDocument = new BsonDocument();
-            playerDocument.Add("Id", newPlayer.PlayerId)
-                .Add("name", newPlayer.Username)
+            playerDocument.Add("name", newPlayer.Name)
                 .Add("wins", 0).Add("losses", 0); 
             _collection.InsertOne(playerDocument);  
         }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Repository;
+using MongoDB.Bson;
 
 namespace LeagueAPI.Application.Services
 {
@@ -19,8 +20,7 @@ namespace LeagueAPI.Application.Services
 
         public IPlayer Add(string newUser)
         {
-            var playersId = Guid.NewGuid();
-            var playerToAdd = new PlayerDto(){ PlayerId = playersId.ToString(), Username  = newUser, Wins = 0, Losses = 0, GamesPlayed = 0};
+            var playerToAdd = new PlayerDto(){ Name  = newUser, Wins = 0, Losses = 0};
             _repository.Add(playerToAdd);
             return playerToAdd;
         }
