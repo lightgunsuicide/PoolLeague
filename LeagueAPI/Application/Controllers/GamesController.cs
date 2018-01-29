@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
-using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeagueAPI.Application.Controllers

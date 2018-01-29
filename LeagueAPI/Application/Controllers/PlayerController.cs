@@ -8,6 +8,7 @@ using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace LeagueAPI.Application.Controllers
@@ -37,7 +38,7 @@ namespace LeagueAPI.Application.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult FindPlayerById(Guid id)
+        public ActionResult FindPlayerById(BsonObjectId id)
         {
             return Ok(_playerService.SearchById(id));
         }

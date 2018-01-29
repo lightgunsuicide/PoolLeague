@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Moq;
 using FluentAssertions;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Controllers;
 using LeagueAPI.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Semantics;
 using TestsAPI.Helpers;
 using Xunit;
 

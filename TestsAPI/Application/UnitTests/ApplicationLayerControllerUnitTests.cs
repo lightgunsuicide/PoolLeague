@@ -8,6 +8,7 @@ using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Rest;
+using MongoDB.Bson;
 using Moq;
 using Xunit;
 
@@ -35,16 +36,17 @@ namespace TestsAPI.Application.UnitTests
         public void FindPlayerById()
         {
             //Arrange
-            var id = new Guid();
-            var player = new PlayerDto(){PlayerId = id, Username = "Lorem Ipsum", GamesPlayed = 12, Losses = 4, Wins = 8};
+            var plainObjectId = new ObjectId();
+            var bsonObjectId = new BsonObjectId(plainObjectId);
+            var player = new PlayerDto(){ Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8};
 
             var mockService = new Mock<IPlayerService>();
-            mockService.Setup(x => x.SearchById(id)).Returns(player);
+            mockService.Setup(x => x.SearchById(bsonObjectId)).Returns(player);
 
             var playerController = new PlayerController(mockService.Object);
              
             //Act
-            var returnedPlayer = playerController.FindPlayerById(id);
+            var returnedPlayer = playerController.FindPlayerById(bsonObjectId);
             var okObjectResult = returnedPlayer as OkObjectResult;
 
             //Assert
@@ -55,8 +57,10 @@ namespace TestsAPI.Application.UnitTests
         public void FindPlayerByUsername()
         {
             //Arrange
-            var id = new Guid();
-            var player = new PlayerDto() { PlayerId = id, Username = "Lorem Ipsum", GamesPlayed = 12, Losses = 4, Wins = 8 };
+            var plainObjectId = new ObjectId();
+            var bsonObjectId = new BsonObjectId(plainObjectId);
+
+            var player = new PlayerDto() { Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8 };
             var nameSearched = "Lorem Ipsum";
 
             var mockService = new Mock<IPlayerService>();
