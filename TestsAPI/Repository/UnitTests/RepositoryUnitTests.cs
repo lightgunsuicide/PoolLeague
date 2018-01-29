@@ -76,5 +76,18 @@ namespace TestsAPI.Repository.UnitTests
             //Assert
             removedText.Should().Be("Success: Player " + playerToRemove + " has been removed");
         }
+
+        [Fact]
+        public void UpdatingGameLoser()
+        {
+            //Arrange
+            var game = new GameDto(){ };
+
+            //Act
+
+
+            //Assert
+
+        }
     }
 }
