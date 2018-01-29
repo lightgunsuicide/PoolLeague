@@ -79,15 +79,38 @@ namespace TestsAPI.Repository.UnitTests
 
         [Fact]
         public void UpdatingGameLoser()
-        {
+        {         
             //Arrange
-            var game = new GameDto(){ };
+            var game = new GameDto();
+            game.GameID = new BsonObjectId(new ObjectId());
+            game.Loser = new BsonObjectId(new ObjectId("5a6f1b9b096a8a01c86f4c91"));
+            game.Winner = new BsonObjectId(new ObjectId());
+
+            var playerRepo = new PlayerRepository(settingsFixture.settings);
 
             //Act
-
+            playerRepo.UpdateLoser(game);
 
             //Assert
+            playerRepo.FindById(new ObjectId("5a6f1b9b096a8a01c86f4c91")).Losses.Should().Be(13);
+        }
 
+        [Fact]
+        public void UpdatingGameWinner()
+        {
+            //Arrange
+            var game = new GameDto();
+            game.GameID = new BsonObjectId(new ObjectId());
+            game.Winner = new BsonObjectId(new ObjectId("5a6f1b9b096a8a01c86f4c91"));
+            game.Loser = new BsonObjectId(new ObjectId());
+
+            var playerRepo = new PlayerRepository(settingsFixture.settings);
+
+            //Act
+            playerRepo.UpdateWinner(game);
+
+            //Assert
+            playerRepo.FindById(new ObjectId("5a6f1b9b096a8a01c86f4c91")).Wins.Should().Be(101);
         }
     }
 }

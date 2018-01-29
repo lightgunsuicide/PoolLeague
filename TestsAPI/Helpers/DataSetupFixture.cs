@@ -19,7 +19,6 @@ namespace TestsAPI.Helpers
 
         public IMongoClient Client { get; set; }
 
-
         public void SetDB(IOptions<MongoSettings> settings)
         {
             var connectionUri = settings.Value.connectionUri;
