@@ -9,6 +9,7 @@ using LeagueAPI.Repository;
 using Microsoft.Extensions.Options;
 using Xunit;
 using LeagueAPI.Application.Dtos.Interfaces;
+using MongoDB.Bson;
 using TestsAPI.Helpers;
 
 namespace TestsAPI.Repository.UnitTests
@@ -51,14 +52,29 @@ namespace TestsAPI.Repository.UnitTests
         public void FindById()
         {
             //Arrange 
-            //  var repository = new PlayerRepository(settings);
-
+            var playerRepo = new PlayerRepository(settingsFixture.settings);
+            var objectId = new ObjectId("5a6f1b9b096a8a01c86f4c91");
+            var bsonObjectId = new BsonObjectId(objectId);
 
             //Act
-
+            var result = playerRepo.FindById(bsonObjectId);
 
             //Assert
+            result.Name.Should().Be("Lorem Ipsum");
+        }
 
+        [Fact]
+        public void RemovePlayer()
+        {
+            //Arrange
+            var playerRepo = new PlayerRepository(settingsFixture.settings);
+            var playerToRemove = "cursus convallis";
+            
+            //Act
+            var removedText = playerRepo.Remove("cursus convallis");
+
+            //Assert
+            removedText.Should().Be("Success: Player " + playerToRemove + " has been removed");
         }
     }
 }

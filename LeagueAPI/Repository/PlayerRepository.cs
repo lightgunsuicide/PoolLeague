@@ -36,7 +36,7 @@ namespace LeagueAPI.Repository
         
         public IPlayer FindById(BsonObjectId id)
         {
-            var filter = new BsonDocument("Id", id);
+            var filter = new BsonDocument("_id", id);
             var player = _collection.Find(filter).Single();
             var deserialisedPlayer = BsonSerializer.Deserialize<PlayerDto>(player);
             return deserialisedPlayer;
@@ -52,7 +52,7 @@ namespace LeagueAPI.Repository
         public string Remove(string player)
         {
             var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Eq("username", player);
+            var filter = builder.Eq("name", player);
             try
             {
                 _collection.DeleteOne(filter);   

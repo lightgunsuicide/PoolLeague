@@ -131,5 +131,6 @@ namespace TestsAPI.Application.UnitTests
                 game.Winner.Should().Be(playerOne.Id);
                 game.Loser.Should().Be(playerOne.Id);
          }
+
      }
 }
