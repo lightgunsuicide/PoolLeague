@@ -3,3 +3,4 @@ vs/
 .vs/
 obj/
 packages/
+*.csproj.user
