@@ -1,11 +1,12 @@
 ﻿using System;
+using MongoDB.Bson;
 
 namespace LeagueAPI.Application.Dtos.Interfaces
 {
     public interface IGame
     {
-         Guid GameID { get; set; }
-         Guid Winner { get; set; }
-         Guid Loser { get; set; }
+         BsonObjectId GameID { get; set; }
+        BsonObjectId Winner { get; set; }
+        BsonObjectId Loser { get; set; }
     }
 }

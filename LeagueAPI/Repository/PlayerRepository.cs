@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LeagueAPI.Application.Dtos;
 using LeagueAPI.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -19,7 +20,7 @@ namespace LeagueAPI.Repository
         {
             var connectionUri = settings.Value.connectionUri;
             var connectionPort = settings.Value.connectionPort;   
-            var connectionString = connectionUri + ":" + connectionPort; 
+            var connectionString = "mongodb://"+ connectionUri + ":" + connectionPort; 
             IMongoClient client = new MongoClient(connectionString);
             _database = client.GetDatabase(settings.Value.mongoDataBase);
             _collection = _database.GetCollection<BsonDocument>("players");
@@ -28,31 +29,30 @@ namespace LeagueAPI.Repository
         public void Add(IPlayer newPlayer)
         {
             var playerDocument = new BsonDocument();
-            playerDocument.Add("Id", newPlayer.PlayerId)
-                .Add("name", newPlayer.Username)
+            playerDocument.Add("name", newPlayer.Name)
                 .Add("wins", 0).Add("losses", 0); 
             _collection.InsertOne(playerDocument);  
         }
         
-        public IPlayer FindById(Guid id)
+        public IPlayer FindById(BsonObjectId id)
         {
             var filter = new BsonDocument("_id", id);
             var player = _collection.Find(filter).Single();
-            var deserialisedPlayer = BsonSerializer.Deserialize<IPlayer>(player);
+            var deserialisedPlayer = BsonSerializer.Deserialize<PlayerDto>(player);
             return deserialisedPlayer;
         }
 
         public IPlayer FindByUsername(string username) {
-            var filter = new BsonDocument("username", username);
+            var filter = new BsonDocument("name", username);
             var player = _collection.Find(filter).Single();
-            var deserialisedPlayer = BsonSerializer.Deserialize<IPlayer>(player);
+            var deserialisedPlayer = BsonSerializer.Deserialize<PlayerDto>(player);
             return deserialisedPlayer;
         }
 
         public string Remove(string player)
         {
             var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Eq("username", player);
+            var filter = builder.Eq("name", player);
             try
             {
                 _collection.DeleteOne(filter);   

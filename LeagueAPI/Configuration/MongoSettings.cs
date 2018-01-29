@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LeagueAPI.Configuration
+﻿namespace LeagueAPI.Configuration
 {
-    public class MongoSettings
+    public class MongoSettings : IMongoSettings
     {
         public string connectionUri { get; set; }
         public string connectionPort { get; set; }

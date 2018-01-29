@@ -1,5 +1,6 @@
 ﻿using System;
 using LeagueAPI.Application.Dtos.Interfaces;
+using MongoDB.Bson;
 
 namespace LeagueAPI.Application.Services
 {
@@ -7,7 +8,7 @@ namespace LeagueAPI.Application.Services
     {
         IPlayer Add(string newUser);
         string Remove(string userToDelete);
-        IPlayer SearchById(Guid id);
+        IPlayer SearchById(BsonObjectId id);
         IPlayer SearchByUsername(string username);
     }
 }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Moq;
 using FluentAssertions;
-using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Domain.Services;
 using LeagueAPI.Repository;
@@ -13,10 +10,9 @@ using Xunit;
 
 namespace TestsAPI.Domain.UnitTests
 {
-    
+
     public class DomainLayerServicesUnitTests
     {
-
         private  List<IPlayer> _players;
       
         [Fact]
@@ -45,7 +41,7 @@ namespace TestsAPI.Domain.UnitTests
             //Arrange
             var TestHelpers = new TestHelpers();
 
-            TestHelpers.PopulateListOfPlayers();
+            _players = TestHelpers.PopulateListOfPlayers();
 
             var mockRepo = new Mock<IRepository<IPlayer>>();
             var displayResults = _players.ToList();
