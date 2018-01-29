@@ -4,6 +4,7 @@ using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
 using LeagueAPI.Repository;
+using MongoDB.Bson;
 using Moq;
 using Newtonsoft.Json.Bson;
 using Xunit;
@@ -24,10 +25,9 @@ namespace TestsAPI.Application.UnitTests
             var result = playerService.Add(mockPlayer);
 
             //Assert
-            result.Username.Should().Be(mockPlayer);
+            result.Name.Should().Be(mockPlayer);
             result.Losses.Should().Be(0);
-            result.Wins.Should().Be(0);
-            result.PlayerId.Should().NotBeEmpty();       
+            result.Wins.Should().Be(0); 
         }
 
         [Fact]
@@ -53,8 +53,8 @@ namespace TestsAPI.Application.UnitTests
         public void SearchForPlayerById()
         {
             //Arrange
-            var uniqueId = new BsonObjectId("1111111");
-            var uniqueString = uniqueId.ToString();
+            var id = new ObjectId();
+            var uniqueId = new BsonObjectId(id);
 
             var playerToFind = new PlayerDto()
             {
@@ -62,11 +62,10 @@ namespace TestsAPI.Application.UnitTests
                 Name = "Falsum Hominem",
                 Losses = 1,
                 Wins = 2,
-
             };
 
             var mockRepo = new Mock<IRepository<IPlayer>>();
-            mockRepo.Setup(x => x.FindById(playerToFind.Id.ToString())).
+            mockRepo.Setup(x => x.FindById(playerToFind.Id)).
                 Returns(playerToFind);
 
             var playerService = new PlayerService(mockRepo.Object);
@@ -105,14 +104,16 @@ namespace TestsAPI.Application.UnitTests
           [Fact]
             public void GameOutcome()
             {
-                //Arrange
-                var playerOne = new PlayerDto()
+            //Arrange
+            var id = new ObjectId();
+            var uniqueId = new BsonObjectId(id);
+
+            var playerOne = new PlayerDto()
                 {
-                    PlayerId = new Guid().ToString(),
-                    Username = "Falsum Hominem",
+                    Id = uniqueId,
+                    Name = "Falsum Hominem",
                     Losses = 1,
                     Wins = 2,
-                    GamesPlayed = 2
                 };
 
                 var mockRepo = new Mock<IRepository<IPlayer>>();
@@ -127,8 +128,8 @@ namespace TestsAPI.Application.UnitTests
                 var game = gameService.Add(winner, loser);
 
                 //Assert
-                game.Winner.Should().Be(playerOne.PlayerId);
-                game.Loser.Should().Be(playerOne.PlayerId);
+                game.Winner.Should().Be(playerOne.Id);
+                game.Loser.Should().Be(playerOne.Id);
          }
      }
 }

@@ -34,19 +34,17 @@ namespace TestsAPI.Repository.UnitTests
             var playerRepo = new PlayerRepository(settingsFixture.settings);
             var playerToAdd = new PlayerDto()
             {
-                Name = "Falsum Hominem",
+                Name = "Falsum Hominem Et ceteca Et cetera",
                 Losses = 0,
                  Wins = 0
             };
 
             //Act
-
             playerRepo.Add(playerToAdd);
-
+            var playerIfAdded =  playerRepo.FindByUsername(playerToAdd.Name);
 
             //Assert            
-            playerRepo.FindByUsername(playerToAdd.Name).Should().Be(playerToAdd);
-
+            playerIfAdded.Name.Should().Be(playerToAdd.Name);
         }
 
         [Fact]

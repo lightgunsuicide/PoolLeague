@@ -30,7 +30,7 @@ namespace LeagueAPI.Application.Services
            return _repository.Remove(userToDelete);
         }
 
-        public IPlayer SearchById(string id)
+        public IPlayer SearchById(BsonObjectId id)
         {
             return _repository.FindById(id);
         }

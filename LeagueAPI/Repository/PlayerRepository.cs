@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LeagueAPI.Application.Dtos;
 using LeagueAPI.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -33,18 +34,18 @@ namespace LeagueAPI.Repository
             _collection.InsertOne(playerDocument);  
         }
         
-        public IPlayer FindById(string id)
+        public IPlayer FindById(BsonObjectId id)
         {
             var filter = new BsonDocument("Id", id);
             var player = _collection.Find(filter).Single();
-            var deserialisedPlayer = BsonSerializer.Deserialize<IPlayer>(player);
+            var deserialisedPlayer = BsonSerializer.Deserialize<PlayerDto>(player);
             return deserialisedPlayer;
         }
 
         public IPlayer FindByUsername(string username) {
             var filter = new BsonDocument("name", username);
             var player = _collection.Find(filter).Single();
-            var deserialisedPlayer = BsonSerializer.Deserialize<IPlayer>(player);
+            var deserialisedPlayer = BsonSerializer.Deserialize<PlayerDto>(player);
             return deserialisedPlayer;
         }
 

@@ -17,8 +17,8 @@ namespace LeagueAPI.Application.Services
         {
             var winnerDetails = _repository.FindByUsername(winner); 
             var loserDetails = _repository.FindByUsername(loser);
-            var winnerId = winnerDetails.PlayerId;
-            var loserId = loserDetails.PlayerId;
+            var winnerId = winnerDetails.Id;
+            var loserId = loserDetails.Id;
 
             var gameDetails = new GameDto() { Winner = winnerId, Loser = loserId };
             

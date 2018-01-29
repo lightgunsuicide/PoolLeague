@@ -1,14 +1,12 @@
 ﻿using LeagueAPI.Application.Dtos.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace LeagueAPI.Repository
 {
     public interface IRepository<TEntity> 
     {
-        TEntity FindById(string id);
+        TEntity FindById(BsonObjectId id);
         TEntity FindByUsername(string username);
         void Add(TEntity entity);
         string Remove(string player);
