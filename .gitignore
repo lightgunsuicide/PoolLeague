@@ -4,3 +4,4 @@ vs/
 obj/
 packages/
 *.csproj.user
+lib/
