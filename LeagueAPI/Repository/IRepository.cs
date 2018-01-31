@@ -1,6 +1,8 @@
-﻿using LeagueAPI.Application.Dtos.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using LeagueAPI.Application.Dtos.Interfaces;
+using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace LeagueAPI.Repository
 {
@@ -14,6 +16,6 @@ namespace LeagueAPI.Repository
         void UpdateLoser(IGame game);
         void UpdateWinner(IGame game);
         List<IPlayer> ReturnTopTen();
-        List<IPlayer> FindAll();
+        Task<List<IPlayer>> FindAll();
     }
 }

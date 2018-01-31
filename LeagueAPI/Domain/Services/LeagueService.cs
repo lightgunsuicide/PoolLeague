@@ -18,12 +18,16 @@ namespace LeagueAPI.Domain.Services
 
         public List<IPlayer> GetTopTenPlayers()
         {
-           return _repository.ReturnTopTen();
+            var topTen = _repository.ReturnTopTen();
+
+            return (List<IPlayer>) topTen;
         }
 
         public List<IPlayer> GetAllPlayers()
         {
-           return _repository.FindAll();
+            var topTen = _repository.ReturnTopTen();
+            return (List<IPlayer>)topTen;
+            ;
         }
     }
 }

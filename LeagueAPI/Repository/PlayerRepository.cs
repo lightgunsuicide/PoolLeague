@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using LeagueAPI.Application.Dtos;
 using LeagueAPI.Configuration;
 using Microsoft.Extensions.Options;
@@ -98,18 +99,22 @@ namespace LeagueAPI.Repository
 
         public List<IPlayer> ReturnTopTen()
         {
-            IMongoCollection<IPlayer> collection = _database.GetCollection<IPlayer>("players");
+            //todo: update this when .netcore 2 is able to handle explicit list conversion of mongo collection
+            //.netcore currently has framework issues with the .toList method
+            var playersList = _database.GetCollection<IPlayer>("players");
+            var topTen = playersList.Find(x => true).SortByDescending(x => x.Wins).Limit(10);
 
-            var topTen = collection.Find(x => true).SortByDescending(w => w.Wins).Limit(10).ToList();
-            return topTen;
+            return new List<IPlayer>();
         }
-
-        public List<IPlayer> FindAll()
+        
+        public async Task<List<IPlayer>> FindAll()
         {
-            IMongoCollection<IPlayer> collection = _database.GetCollection<IPlayer>("players");
+            var builder = Builders<BsonDocument>.Filter;
+            var filter = builder.Where(x => true);
+            var result =  _collection.FindAsync(filter).Result;
+         
 
-            var allPlayers = collection.Find(x => true).SortByDescending(w => w.Wins).ToList();
-            return allPlayers;
+            return new List<IPlayer>();
         }
     }
 }
