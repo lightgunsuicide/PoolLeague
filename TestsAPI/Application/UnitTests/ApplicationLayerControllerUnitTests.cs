@@ -38,6 +38,7 @@ namespace TestsAPI.Application.UnitTests
             //Arrange
             var plainObjectId = new ObjectId();
             var bsonObjectId = new BsonObjectId(plainObjectId);
+            var convertedId = bsonObjectId.ToString();
             var player = new PlayerDto(){ Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8};
 
             var mockService = new Mock<IPlayerService>();
@@ -46,7 +47,7 @@ namespace TestsAPI.Application.UnitTests
             var playerController = new PlayerController(mockService.Object);
              
             //Act
-            var returnedPlayer = playerController.FindPlayerById(bsonObjectId);
+            var returnedPlayer = playerController.FindPlayerById(convertedId);
             var okObjectResult = returnedPlayer as OkObjectResult;
 
             //Assert

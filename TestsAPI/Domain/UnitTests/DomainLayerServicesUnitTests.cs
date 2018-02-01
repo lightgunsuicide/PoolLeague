@@ -2,6 +2,7 @@
 using System.Linq;
 using Moq;
 using FluentAssertions;
+using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Domain.Services;
 using LeagueAPI.Repository;
@@ -13,7 +14,7 @@ namespace TestsAPI.Domain.UnitTests
 
     public class DomainLayerServicesUnitTests
     {
-        private  List<IPlayer> _players;
+        private List<PlayerDto> _players;
       
         [Fact]
         public void RetreiveTopTen()
@@ -21,7 +22,7 @@ namespace TestsAPI.Domain.UnitTests
             //Arrange
             var TestHelpers = new TestHelpers();
             _players = TestHelpers.PopulateListOfPlayers();
-            
+
             var mockRepo = new Mock<IRepository<IPlayer>>();
             var displayResults = _players.OrderByDescending(x => x.Wins).Take(10).ToList();
             mockRepo.Setup(x => x.ReturnTopTen()).Returns(displayResults);
@@ -38,7 +39,7 @@ namespace TestsAPI.Domain.UnitTests
         [Fact]
         public void FindAllPlayers()
         {
-            //Arrange
+           // Arrange
             var TestHelpers = new TestHelpers();
 
             _players = TestHelpers.PopulateListOfPlayers();

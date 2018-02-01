@@ -19,7 +19,6 @@ namespace TestsAPI.Helpers
 
         public IMongoClient Client { get; set; }
 
-
         public void SetDB(IOptions<MongoSettings> settings)
         {
             var connectionUri = settings.Value.connectionUri;
@@ -100,12 +99,10 @@ namespace TestsAPI.Helpers
 
         public void Dispose()
         {
-            
             foreach (var player in _dummyPlayers)
             {
                 _collection.DeleteOne(Builders<BsonDocument>.Filter.Eq("_id", player.GetValue("_id")));
             }
         }
     }
-
 }

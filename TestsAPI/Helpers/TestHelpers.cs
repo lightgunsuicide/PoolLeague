@@ -13,11 +13,11 @@ namespace TestsAPI.Helpers
         [BsonId]
         public ObjectId MySuperId { get; set; }
 
-        private List<IPlayer> _players;
-        public List<IPlayer> PopulateListOfPlayers()
+        private List<PlayerDto> _players;
+        public List<PlayerDto> PopulateListOfPlayers()
         {
             var player = new PlayerDto();
-            _players = new List<IPlayer>();
+            _players = new List<PlayerDto>();
             var rand = new Random(100);
       
 
