@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Repository;
+using MongoDB.Driver;
 
 namespace LeagueAPI.Domain.Services
 {
@@ -16,18 +18,14 @@ namespace LeagueAPI.Domain.Services
             _repository = repository;
         }
 
-        public List<IPlayer> GetTopTenPlayers()
+        public List<PlayerDto> GetTopTenPlayers()
         {
-            var topTen = _repository.ReturnTopTen();
-
-            return (List<IPlayer>) topTen;
+            return _repository.ReturnTopTen();
         }
 
-        public List<IPlayer> GetAllPlayers()
+        public List<PlayerDto> GetAllPlayers()
         {
-            var topTen = _repository.ReturnTopTen();
-            return (List<IPlayer>)topTen;
-            ;
+            return _repository.FindAll();
         }
     }
 }

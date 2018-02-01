@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using LeagueAPI.Application.Dtos;
 using LeagueAPI.Configuration;
@@ -115,13 +116,12 @@ namespace TestsAPI.Repository.UnitTests
             //Arrange
             var playerRepo = new PlayerRepository(settingsFixture.settings);
 
+
             //Act
             var listOfTopTenPlayers = playerRepo.FindAll();
 
-            var makeList = listOfTopTenPlayers.ToBsonDocument().ToList();
-
-
             //Assert
+            listOfTopTenPlayers.Count.Should().BeGreaterOrEqualTo(11);
 
         }
 
@@ -131,14 +131,11 @@ namespace TestsAPI.Repository.UnitTests
             //Arrange
             var playerRepo = new PlayerRepository(settingsFixture.settings);
 
-
             //Act
             var listOfTopTenPlayers = playerRepo.ReturnTopTen();
 
-            var makeList = listOfTopTenPlayers.ToBsonDocument().ToList();
-
             //Assert
-
+            listOfTopTenPlayers.Count.Should().Be(10);
         }
     }
 }

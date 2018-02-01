@@ -97,24 +97,20 @@ namespace LeagueAPI.Repository
             _collection.UpdateOne(filter, updateWins);
         }
 
-        public List<IPlayer> ReturnTopTen()
+        public List<PlayerDto> ReturnTopTen()
         {
-            //todo: update this when .netcore 2 is able to handle explicit list conversion of mongo collection
-            //.netcore currently has framework issues with the .toList method
-            var playersList = _database.GetCollection<IPlayer>("players");
-            var topTen = playersList.Find(x => true).SortByDescending(x => x.Wins).Limit(10);
+            var playersList = _database.GetCollection<PlayerDto>("players");
+            var topTen = playersList.Find(x => true).SortByDescending(x => x.Wins).Limit(10).ToList();
 
-            return new List<IPlayer>();
+            return topTen;
         }
-        
-        public async Task<List<IPlayer>> FindAll()
-        {
-            var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Where(x => true);
-            var result =  _collection.FindAsync(filter).Result;
-         
 
-            return new List<IPlayer>();
+        public List<PlayerDto> FindAll()
+        {
+            IMongoCollection<PlayerDto> players = _database.GetCollection<PlayerDto>("players");
+            List<PlayerDto> playerList = players.Find(x => true).SortByDescending(x => x.Wins).ToList();
+
+            return playerList;
         }
     }
 }
