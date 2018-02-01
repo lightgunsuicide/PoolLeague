@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Repository;
-using MongoDB.Driver;
 
 namespace LeagueAPI.Domain.Services
 {

@@ -1,15 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
-using System.Runtime.Serialization.Json;
-using LeagueAPI.Application.Dtos;
-using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
-using Microsoft.AspNetCore.Http;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace LeagueAPI.Application.Controllers
 {
@@ -37,19 +31,25 @@ namespace LeagueAPI.Application.Controllers
             return response;
         }
 
-        [HttpGet("{id}")]
-        public ActionResult FindPlayerById(BsonObjectId id)
+        [HttpGet("id/{id}")]
+        public ActionResult FindPlayerById(string id)
         {
-            return Ok(_playerService.SearchById(id));
+            var convertedId = new BsonObjectId(new ObjectId(id));
+
+            var playerToReturn = _playerService.SearchById(convertedId);
+            var jsonPlayer = playerToReturn.ToJson();
+            return Ok(jsonPlayer);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("name/{username}")]
         public ActionResult FindPlayerByUsername(string username)
         {
-            return Ok(_playerService.SearchByUsername(username));
+            var playerToReturn = _playerService.SearchByUsername(username);
+            var jsonPlayer =  playerToReturn.ToJson();
+            return Ok(jsonPlayer);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteplayer/{username}")]
         public ActionResult DeletePlayer(string username)
         {
             var responseText = _playerService.Remove(username);
