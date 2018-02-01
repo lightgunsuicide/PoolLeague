@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using LeagueAPI.Application.Dtos;
 using LeagueAPI.Configuration;
 using Microsoft.Extensions.Options;
@@ -73,11 +73,12 @@ namespace LeagueAPI.Repository
         public void UpdateLoser(IGame game) {
             var loseFilter = new BsonDocument("_id", game.Loser);
             var losingPlayer = _collection.Find(loseFilter).Single();
-            var deserialisedLoser = BsonSerializer.Deserialize<IPlayer>(losingPlayer);
+            var deserialisedLoser = BsonSerializer.Deserialize<PlayerDto>(losingPlayer);
 
             var builder = Builders<BsonDocument>.Filter;
             var filter = builder.Eq("_id", game.Loser);
-            var updateLosses = Builders<BsonDocument>.Update.Set("Losses", deserialisedLoser.Losses++);
+            var currentLosses = deserialisedLoser.Losses + 1;
+            var updateLosses = Builders<BsonDocument>.Update.Set("losses", currentLosses);
 
             _collection.UpdateOne(filter, updateLosses);
         }
@@ -85,29 +86,31 @@ namespace LeagueAPI.Repository
         public void UpdateWinner(IGame game) {
             var winFilter = new BsonDocument("_id", game.Winner);
             var winningPlayer = _collection.Find(winFilter).Single();
-            var deserialisedWinner = BsonSerializer.Deserialize<IPlayer>(winningPlayer);
+            var deserialisedWinner = BsonSerializer.Deserialize<PlayerDto>(winningPlayer);
 
             var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Eq("_id", game.Loser);
-            var updateWins = Builders<BsonDocument>.Update.Set("Wins", deserialisedWinner.Wins++);
+            var filter = builder.Eq("_id", game.Winner);
+            var currentWins = deserialisedWinner.Wins + 1;
+
+            var updateWins = Builders<BsonDocument>.Update.Set("wins", currentWins);
 
             _collection.UpdateOne(filter, updateWins);
         }
 
-        public List<IPlayer> ReturnTopTen()
+        public List<PlayerDto> ReturnTopTen()
         {
-            IMongoCollection<IPlayer> collection = _database.GetCollection<IPlayer>("players");
+            var playersList = _database.GetCollection<PlayerDto>("players");
+            var topTen = playersList.Find(x => true).SortByDescending(x => x.Wins).Limit(10).ToList();
 
-            var topTen = collection.Find(x => true).SortByDescending(w => w.Wins).Limit(10).ToList();
             return topTen;
         }
 
-        public List<IPlayer> FindAll()
+        public List<PlayerDto> FindAll()
         {
-            IMongoCollection<IPlayer> collection = _database.GetCollection<IPlayer>("players");
+            IMongoCollection<PlayerDto> players = _database.GetCollection<PlayerDto>("players");
+            List<PlayerDto> playerList = players.Find(x => true).SortByDescending(x => x.Wins).ToList();
 
-            var allPlayers = collection.Find(x => true).SortByDescending(w => w.Wins).ToList();
-            return allPlayers;
+            return playerList;
         }
     }
 }

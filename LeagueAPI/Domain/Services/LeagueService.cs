@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using LeagueAPI.Application.Dtos;
 using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Repository;
 
@@ -16,14 +14,14 @@ namespace LeagueAPI.Domain.Services
             _repository = repository;
         }
 
-        public List<IPlayer> GetTopTenPlayers()
+        public List<PlayerDto> GetTopTenPlayers()
         {
-           return _repository.ReturnTopTen();
+            return _repository.ReturnTopTen();
         }
 
-        public List<IPlayer> GetAllPlayers()
+        public List<PlayerDto> GetAllPlayers()
         {
-           return _repository.FindAll();
+            return _repository.FindAll();
         }
     }
 }
