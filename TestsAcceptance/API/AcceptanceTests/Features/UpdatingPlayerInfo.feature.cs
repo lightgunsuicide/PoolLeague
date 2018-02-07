@@ -84,8 +84,6 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Given("I make a call to the API requesting to add a new player", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.When("I make the request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
  testRunner.Then("the player is added to the league", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -97,15 +95,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void AddingANewGame()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a new game", ((string[])(null)));
-#line 12
+#line 11
 this.ScenarioSetup(scenarioInfo);
-#line 13
+#line 12
  testRunner.Given("I make a call to the API with new game data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 14
+#line 13
  testRunner.When("I add details of a game", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
+#line 14
  testRunner.Then("the winning player increments their win total by one", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 16
+#line 15
  testRunner.And("the losing player increments their losss total by one", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

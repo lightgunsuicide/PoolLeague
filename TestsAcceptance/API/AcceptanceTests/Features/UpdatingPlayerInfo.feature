@@ -5,7 +5,6 @@
 @mytag
 Scenario: Adding a new player
 	Given I make a call to the API requesting to add a new player
-	When I make the request
 	Then the player is added to the league
 
 

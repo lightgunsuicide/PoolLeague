@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using LeagueAPI.Application.Services;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
@@ -26,9 +25,8 @@ namespace LeagueAPI.Application.Controllers
                 var response = new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.Created,
-                    Content = new StringContent(string.Format("New user {0} created", username))
                 };
-                return response;        
+                return response;
         }
 
         [HttpGet("id/{id}")]
@@ -58,7 +56,6 @@ namespace LeagueAPI.Application.Controllers
             {
                 return Ok(Content(responseText));
             }
-
             return NotFound(responseText);
         }
     }

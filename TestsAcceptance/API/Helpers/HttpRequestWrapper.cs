@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
 
-
 namespace TestsAcceptance.API.Helpers
 {
     public class HttpRequestWrapper
@@ -16,6 +15,7 @@ namespace TestsAcceptance.API.Helpers
             _restRequest = new RestRequest();
         }
 
+     
         public HttpRequestWrapper SetResourse(string resource)
         {
             _restRequest.Resource = resource;
@@ -60,11 +60,11 @@ namespace TestsAcceptance.API.Helpers
             return this;
         }
 
-        public IRestResponse Execute()
+        public IRestResponse Execute(string url)
         {
             try
             {
-                _restClient = new RestClient("http://localhost:52201/");
+                _restClient = new RestClient(url);
                 var response = _restClient.Execute(_restRequest);
                 return response;
             }
@@ -74,9 +74,9 @@ namespace TestsAcceptance.API.Helpers
             }
         }
 
-        public T Execute<T>()
+        public T Execute<T>(string url)
         {
-            _restClient = new RestClient("http://localhost:52201/");
+            _restClient = new RestClient(url);
             var response = _restClient.Execute(_restRequest);
             var data = JsonConvert.DeserializeObject<T>(response.Content);
             return data;
