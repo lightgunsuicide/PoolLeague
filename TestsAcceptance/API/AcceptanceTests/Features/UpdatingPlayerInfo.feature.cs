@@ -17,37 +17,39 @@ namespace TestsAcceptance.API.AcceptanceTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("UpdatingPlayerInfo")]
-    public partial class UpdatingPlayerInfoFeature
+    public partial class UpdatingPlayerInfoFeature : Xunit.IClassFixture<UpdatingPlayerInfoFeature.FixtureData>, System.IDisposable
     {
         
-        private TechTalk.SpecFlow.ITestRunner testRunner;
+        private static TechTalk.SpecFlow.ITestRunner testRunner;
+        
+        private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
 #line 1 "UpdatingPlayerInfo.feature"
 #line hidden
         
-        [NUnit.Framework.OneTimeSetUpAttribute()]
-        public virtual void FeatureSetup()
+        public UpdatingPlayerInfoFeature(UpdatingPlayerInfoFeature.FixtureData fixtureData, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        {
+            this._testOutputHelper = testOutputHelper;
+            this.TestInitialize();
+        }
+        
+        public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "UpdatingPlayerInfo", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        [NUnit.Framework.OneTimeTearDownAttribute()]
-        public virtual void FeatureTearDown()
+        public static void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
         
-        [NUnit.Framework.SetUpAttribute()]
         public virtual void TestInitialize()
         {
         }
         
-        [NUnit.Framework.TearDownAttribute()]
         public virtual void ScenarioTearDown()
         {
             testRunner.OnScenarioEnd();
@@ -56,6 +58,7 @@ namespace TestsAcceptance.API.AcceptanceTests.Features
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
+            testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
         public virtual void ScenarioCleanup()
@@ -63,9 +66,15 @@ namespace TestsAcceptance.API.AcceptanceTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Adding a new player")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
+        void System.IDisposable.Dispose()
+        {
+            this.ScenarioTearDown();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="Adding a new player")]
+        [Xunit.TraitAttribute("FeatureTitle", "UpdatingPlayerInfo")]
+        [Xunit.TraitAttribute("Description", "Adding a new player")]
+        [Xunit.TraitAttribute("Category", "mytag")]
         public virtual void AddingANewPlayer()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a new player", new string[] {
@@ -82,8 +91,9 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Adding a new game")]
+        [Xunit.FactAttribute(DisplayName="Adding a new game")]
+        [Xunit.TraitAttribute("FeatureTitle", "UpdatingPlayerInfo")]
+        [Xunit.TraitAttribute("Description", "Adding a new game")]
         public virtual void AddingANewGame()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a new game", ((string[])(null)));
@@ -99,6 +109,22 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("the losing player increments their losss total by one", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
+        [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        public class FixtureData : System.IDisposable
+        {
+            
+            public FixtureData()
+            {
+                UpdatingPlayerInfoFeature.FeatureSetup();
+            }
+            
+            void System.IDisposable.Dispose()
+            {
+                UpdatingPlayerInfoFeature.FeatureTearDown();
+            }
         }
     }
 }

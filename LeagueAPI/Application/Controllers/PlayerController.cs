@@ -18,17 +18,17 @@ namespace LeagueAPI.Application.Controllers
             _playerService = playerService;
         }
 
-        [HttpPost("/addplayer")]
-        public HttpResponseMessage AddPlayer([FromBody]string username)
+        [HttpPost("/addplayer/{username}")]
+        public HttpResponseMessage AddPlayer(string username)
         {
-            _playerService.Add(username);
+             _playerService.Add(username);
 
-            var response = new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.Created,
-                Content = new StringContent(string.Format("New user {0} created", username))
-            };
-            return response;
+                var response = new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.Created,
+                    Content = new StringContent(string.Format("New user {0} created", username))
+                };
+                return response;        
         }
 
         [HttpGet("id/{id}")]

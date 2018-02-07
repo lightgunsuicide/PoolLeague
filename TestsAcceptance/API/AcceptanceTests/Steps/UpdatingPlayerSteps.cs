@@ -1,18 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TechTalk.SpecFlow;
+using TestsAcceptance.API.Helpers;
 
 namespace TestsAcceptance.API.AcceptanceTests.Steps
 {
     [Binding]
     public sealed class UpdatingPlayerSteps
     {
+        HttpRequestWrapper _httpRequestWrapper;
+
         [Given(@"I make a call to the API requesting to add a new player")]
         public void GivenIMakeACallToTheAPIRequestingToAddANewPlayer()
         {
-            ScenarioContext.Current.Pending();
+            _httpRequestWrapper = new HttpRequestWrapper();
+            //Need a playerContract         
+
+        }
+
+        private object PlayerDto()
+        {
+            throw new NotImplementedException();
         }
 
         [When(@"I make the request")]
