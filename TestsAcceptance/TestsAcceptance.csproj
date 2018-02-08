@@ -86,8 +86,8 @@
     </Compile>
     <Compile Include="API\AcceptanceTests\Steps\LeagueSteps.cs" />
     <Compile Include="API\AcceptanceTests\Steps\UpdatingPlayerSteps.cs" />
-    <Compile Include="API\Contracts\PlayerContract.cs" />
     <Compile Include="API\Helpers\HttpRequestWrapper.cs" />
+    <Compile Include="API\HooksAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -79,11 +79,11 @@ namespace TestsAcceptance.API.AcceptanceTests.Features
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Viewing league table", new string[] {
                         "mytag"});
-#line 5
+#line 4
 this.ScenarioSetup(scenarioInfo);
-#line 6
+#line 5
  testRunner.Given("I make a call to the API requesting the top 10 players in the league", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 7
+#line 6
  testRunner.Then("the top 10 players ranked by wins are returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

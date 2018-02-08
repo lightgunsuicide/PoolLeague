@@ -122,10 +122,11 @@ namespace TestsAPI.Application.UnitTests
             //Arrange
             var gameController = new GamesController(new Mock<IGameService>().Object);
             var winner = "Lorem Ipsum";
-            var loser = "Dolor Sit Amet";           
+            var loser = "Dolor Sit Amet";
+            var result = new ResultDto() { Winner = winner, Loser = loser };
 
             //Act
-            var response = gameController.AddGameDetails(winner, loser);
+            var response = gameController.AddGameDetails(result);
             var responseContent = response.Content;
             var responseContentResult = responseContent.ReadAsStringAsync().Result;
 

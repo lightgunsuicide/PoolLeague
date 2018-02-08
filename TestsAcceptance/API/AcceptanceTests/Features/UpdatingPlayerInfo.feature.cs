@@ -79,11 +79,11 @@ namespace TestsAcceptance.API.AcceptanceTests.Features
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a new player", new string[] {
                         "mytag"});
-#line 6
+#line 4
 this.ScenarioSetup(scenarioInfo);
-#line 7
+#line 5
  testRunner.Given("I make a call to the API requesting to add a new player", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
+#line 6
  testRunner.Then("the player is added to the league", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -95,15 +95,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void AddingANewGame()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a new game", ((string[])(null)));
-#line 11
+#line 9
 this.ScenarioSetup(scenarioInfo);
-#line 12
+#line 10
  testRunner.Given("I make a call to the API with new game data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
- testRunner.When("I add details of a game", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
+#line 11
  testRunner.Then("the winning player increments their win total by one", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 15
+#line 12
  testRunner.And("the losing player increments their losss total by one", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

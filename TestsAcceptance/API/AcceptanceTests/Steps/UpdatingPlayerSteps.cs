@@ -1,5 +1,4 @@
 ﻿using RestSharp;
-using System;
 using TechTalk.SpecFlow;
 using TestsAcceptance.API.Helpers;
 using FluentAssertions;
@@ -12,7 +11,7 @@ namespace TestsAcceptance.API.AcceptanceTests.Steps
     {
         HttpRequestWrapper _httpRequestWrapper;
         private  string _hostUrl;
-        private readonly string _newPlayerName = "falus hominem ex1122";
+        private readonly string _newPlayerName = "falus hominem deus";
 
         [Given(@"I make a call to the API requesting to add a new player")]
         public void GivenIMakeACallToTheAPIRequestingToAddANewPlayer()
@@ -28,8 +27,10 @@ namespace TestsAcceptance.API.AcceptanceTests.Steps
             _hostUrl = @"http://localhost:52201/api/player/name/" + _newPlayerName;
             _httpRequestWrapper = new HttpRequestWrapper();
             var response = _httpRequestWrapper.SetMethod(Method.GET).Execute(_hostUrl);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Should().Contain(_newPlayerName);
 
-            response.StatusCode.Should().Be(HttpStatusCode.Created);
+            _httpRequestWrapper.SetMethod(Method.DELETE).Execute("http://localhost:52201/api/player/deleteplayer/"+_newPlayerName);
         }
 
         [Given(@"I make a call to the API with new game data")]
