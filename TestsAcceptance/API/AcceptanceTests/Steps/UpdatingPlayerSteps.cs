@@ -36,14 +36,14 @@ namespace TestsAcceptance.API.AcceptanceTests.Steps
         [Given(@"I make a call to the API with new game data")]
         public void GivenIMakeACallToTheAPIWithNewGameData()
         {
-            ScenarioContext.Current.Pending();
+            var winningPlayer = "";
+            var losingPlayer = "";
+            _hostUrl = @"http://localhost:52201/addgame/winner="+ winningPlayer + "/loser=" + losingPlayer;
+            _httpRequestWrapper = new HttpRequestWrapper();
+            var response = _httpRequestWrapper.SetMethod(Method.POST).Execute(_hostUrl);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
-        [When(@"I add details of a game")]
-        public void WhenIAddDetailsOfAGame()
-        {
-            ScenarioContext.Current.Pending();
-        }
 
         [Then(@"the winning player increments their win total by one")]
         public void ThenTheWinningPlayerIncrementsTheirWinTotalByOne()
