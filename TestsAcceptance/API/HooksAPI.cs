@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
+using TestsAcceptance.API.Helpers;
 
 namespace TestsAcceptance.API
 {
@@ -14,7 +11,22 @@ namespace TestsAcceptance.API
         [BeforeScenario]
         public void BeforeScenario()
         {
-            //TODO: implement logic that has to run before executing each scenario
+            var winningPlayer = "consectetur adipiscing";
+            ScenarioContext.Current["winningPlayer"] = winningPlayer;
+            var losingPlayer = "sodales arcu";
+            ScenarioContext.Current["losingPlayer"] = losingPlayer;
+
+            var winningPlayerId = "5a7325ec8b60a55bec120f2a";
+            ScenarioContext.Current["winningPlayerId"] = winningPlayerId;
+            var losingPlayerId = "5a7325ec8b60a55bec120f2c";
+            ScenarioContext.Current["losingPlayerId"] = losingPlayerId;
+
+
+            MongoHelper mongoHelper = new MongoHelper();
+            ScenarioContext.Current.Add("mongoHelper", mongoHelper);
+
+            ScenarioContext.Current["currentWinnerWins"] = mongoHelper.GetPlayerNumberOfWins(winningPlayerId);
+            ScenarioContext.Current["currentLoserLosses"] = mongoHelper.GetPlayerNumberOfLosses(losingPlayerId);
         }
 
         [AfterScenario]

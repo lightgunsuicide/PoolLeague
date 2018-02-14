@@ -3,6 +3,7 @@ using TechTalk.SpecFlow;
 using TestsAcceptance.API.Helpers;
 using FluentAssertions;
 using System.Net;
+using System.Collections.Generic;
 
 namespace TestsAcceptance.API.AcceptanceTests.Steps
 {
@@ -36,11 +37,14 @@ namespace TestsAcceptance.API.AcceptanceTests.Steps
         [Given(@"I make a call to the API with new game data")]
         public void GivenIMakeACallToTheAPIWithNewGameData()
         {
-            var winningPlayer = "";
-            var losingPlayer = "";
-            _hostUrl = @"http://localhost:52201/addgame/winner="+ winningPlayer + "/loser=" + losingPlayer;
+            _hostUrl = @"http://localhost:52201/addgame/winner=" + ScenarioContext.Current["winningPlayer"].ToString() + "/loser=" + ScenarioContext.Current["losingPlayer"].ToString();
             _httpRequestWrapper = new HttpRequestWrapper();
-            var response = _httpRequestWrapper.SetMethod(Method.POST).Execute(_hostUrl);
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+            headers.Add("Content-Type", "application/json");
+            var response = _httpRequestWrapper.
+                SetMethod(Method.POST).
+                AddHeaders(headers).      
+                Execute(_hostUrl);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
@@ -48,13 +52,19 @@ namespace TestsAcceptance.API.AcceptanceTests.Steps
         [Then(@"the winning player increments their win total by one")]
         public void ThenTheWinningPlayerIncrementsTheirWinTotalByOne()
         {
-            ScenarioContext.Current.Pending();
+            var winningPlayer = ScenarioContext.Current["winningPlayerId"].ToString();
+            var newWinnerWinsTotal = ScenarioContext.Current.Get<MongoHelper>("mongoHelper").GetPlayerNumberOfWins(winningPlayer);
+            var winnerWinsBeforeMatch =  (int) ScenarioContext.Current["currentWinnerWins"];
+            newWinnerWinsTotal.Should().Be(winnerWinsBeforeMatch + 1);
         }
 
         [Then(@"the losing player increments their losss total by one")]
         public void ThenTheLosingPlayerIncrementsTheirLosssTotalByOne()
         {
-            ScenarioContext.Current.Pending();
+            var losingPlayer = ScenarioContext.Current["losingPlayerId"].ToString();
+            var newLoserLossesTotal = ScenarioContext.Current.Get<MongoHelper>("mongoHelper").GetPlayerNumberOfLosses(losingPlayer);
+            var loserLossesBeforeMatch = (int)ScenarioContext.Current["currentLoserLosses"];
+            newLoserLossesTotal.Should().Be(loserLossesBeforeMatch + 1);
         }
     }
 }
