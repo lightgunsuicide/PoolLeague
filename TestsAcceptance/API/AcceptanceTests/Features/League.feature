@@ -1,5 +1,4 @@
 ﻿Feature: League
-	#Due to incompatibility between specflow .netcore, these acceptance tests will require considerable work before functioning and are on hold
 
 @mytag
 Scenario: Viewing league table
