@@ -39,7 +39,7 @@ namespace TestsAPI.Application.UnitTests
             var plainObjectId = new ObjectId();
             var bsonObjectId = new BsonObjectId(plainObjectId);
             var convertedId = bsonObjectId.ToString();
-            var player = new PlayerDto(){ Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8};
+            var player = new Player(){ Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8};
 
             var mockService = new Mock<IPlayerService>();
             mockService.Setup(x => x.SearchById(bsonObjectId)).Returns(player);
@@ -61,7 +61,7 @@ namespace TestsAPI.Application.UnitTests
             var plainObjectId = new ObjectId();
             var bsonObjectId = new BsonObjectId(plainObjectId);
 
-            var player = new PlayerDto() { Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8 };
+            var player = new Player() { Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8 };
             var nameSearched = "Lorem Ipsum";
 
             var mockService = new Mock<IPlayerService>();

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LeagueAPI.Domain.Services;
+﻿using LeagueAPI.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,9 +18,13 @@ namespace LeagueAPI.Controllers
         }
 
         [HttpGet("/top10")]
-        public ActionResult GetTopTen()
-        {
-            return Ok(_leagueService.GetTopTenPlayers());
+        public ActionResult GetTopTen() {
+           var topTenPlayers = _leagueService.GetTopTenPlayers();
+
+            foreach (var player in topTenPlayers) {
+                JsonConvert.SerializeObject(player);
+            }
+            return Ok();
         }
 
         [HttpGet("/all")]

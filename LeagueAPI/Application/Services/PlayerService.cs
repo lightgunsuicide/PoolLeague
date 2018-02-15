@@ -20,7 +20,7 @@ namespace LeagueAPI.Application.Services
 
         public IPlayer Add(string newUser)
         {
-            var playerToAdd = new PlayerDto(){ Name  = newUser, Wins = 0, Losses = 0};
+            var playerToAdd = new Player(){ Name  = newUser, Wins = 0, Losses = 0};
             _repository.Add(playerToAdd);
             return playerToAdd;
         }

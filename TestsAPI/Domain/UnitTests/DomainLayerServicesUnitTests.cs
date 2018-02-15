@@ -14,7 +14,7 @@ namespace TestsAPI.Domain.UnitTests
 
     public class DomainLayerServicesUnitTests
     {
-        private List<PlayerDto> _players;
+        private List<Player> _players;
       
         [Fact]
         public void RetreiveTopTen()

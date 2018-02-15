@@ -38,14 +38,14 @@ namespace LeagueAPI.Repository
         {
             var filter = new BsonDocument("_id", id);
             var player = _collection.Find(filter).Single();
-            var deserialisedPlayer = BsonSerializer.Deserialize<PlayerDto>(player);
+            var deserialisedPlayer = BsonSerializer.Deserialize<Player>(player);
             return deserialisedPlayer;
         }
 
         public IPlayer FindByUsername(string username) {
             var filter = new BsonDocument("name", username);
             var player = _collection.Find(filter).Single();
-            var deserialisedPlayer = BsonSerializer.Deserialize<PlayerDto>(player);
+            var deserialisedPlayer = BsonSerializer.Deserialize<Player>(player);
             return deserialisedPlayer;
         }
 
@@ -73,7 +73,7 @@ namespace LeagueAPI.Repository
         public void UpdateLoser(IGame game) {
             var loseFilter = new BsonDocument("_id", game.Loser);
             var losingPlayer = _collection.Find(loseFilter).Single();
-            var deserialisedLoser = BsonSerializer.Deserialize<PlayerDto>(losingPlayer);
+            var deserialisedLoser = BsonSerializer.Deserialize<Player>(losingPlayer);
 
             var builder = Builders<BsonDocument>.Filter;
             var filter = builder.Eq("_id", game.Loser);
@@ -86,7 +86,7 @@ namespace LeagueAPI.Repository
         public void UpdateWinner(IGame game) {
             var winFilter = new BsonDocument("_id", game.Winner);
             var winningPlayer = _collection.Find(winFilter).Single();
-            var deserialisedWinner = BsonSerializer.Deserialize<PlayerDto>(winningPlayer);
+            var deserialisedWinner = BsonSerializer.Deserialize<Player>(winningPlayer);
 
             var builder = Builders<BsonDocument>.Filter;
             var filter = builder.Eq("_id", game.Winner);
@@ -97,18 +97,18 @@ namespace LeagueAPI.Repository
             _collection.UpdateOne(filter, updateWins);
         }
 
-        public List<PlayerDto> ReturnTopTen()
+        public List<Player> ReturnTopTen()
         {
-            var playersList = _database.GetCollection<PlayerDto>("players");
+            var playersList = _database.GetCollection<Player>("players");
             var topTen = playersList.Find(x => true).SortByDescending(x => x.Wins).Limit(10).ToList();
 
             return topTen;
         }
 
-        public List<PlayerDto> FindAll()
+        public List<Player> FindAll()
         {
-            IMongoCollection<PlayerDto> players = _database.GetCollection<PlayerDto>("players");
-            List<PlayerDto> playerList = players.Find(x => true).SortByDescending(x => x.Wins).ToList();
+            IMongoCollection<Player> players = _database.GetCollection<Player>("players");
+            List<Player> playerList = players.Find(x => true).SortByDescending(x => x.Wins).ToList();
 
             return playerList;
         }

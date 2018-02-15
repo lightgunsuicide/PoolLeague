@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace LeagueAPI.Application.Dtos
 {
-    public class PlayerDto : IPlayer
+    public class Player : IPlayer
     {
         [BsonElement("_id")]
         public BsonObjectId Id { get; set; }
