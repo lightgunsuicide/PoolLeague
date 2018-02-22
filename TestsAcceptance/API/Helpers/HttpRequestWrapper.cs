@@ -15,7 +15,6 @@ namespace TestsAcceptance.API.Helpers
             _restRequest = new RestRequest();
         }
 
-     
         public HttpRequestWrapper SetResourse(string resource)
         {
             _restRequest.Resource = resource;

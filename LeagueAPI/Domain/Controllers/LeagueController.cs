@@ -1,7 +1,6 @@
 ﻿using LeagueAPI.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-
+using MongoDB.Bson;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace LeagueAPI.Controllers
@@ -19,12 +18,10 @@ namespace LeagueAPI.Controllers
 
         [HttpGet("/top10")]
         public ActionResult GetTopTen() {
-           var topTenPlayers = _leagueService.GetTopTenPlayers();
+            var topTenPlayers = _leagueService.GetTopTenPlayers();
+            var bsonPlayers = topTenPlayers.ToJson();
 
-            foreach (var player in topTenPlayers) {
-                JsonConvert.SerializeObject(player);
-            }
-            return Ok();
+            return Ok(bsonPlayers);
         }
 
         [HttpGet("/all")]

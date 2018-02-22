@@ -33,7 +33,7 @@ namespace TestsAPI.Domain.UnitTests
             var okObjectResult = returnedTopTen as OkObjectResult;
 
             //Assert
-            okObjectResult.Value.Should().Be(displayResults);
+            okObjectResult.Value.ToString().Should().Contain(displayResults[0].Id.ToString());
         }
     }
 }

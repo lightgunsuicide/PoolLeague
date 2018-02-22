@@ -24,12 +24,9 @@ namespace TestsAPI.Application.UnitTests
 
             //Act
             var response = playerController.AddPlayer(username);
-            var responseContent = response.Content;
-            var responseContentResult = responseContent.ReadAsStringAsync().Result;
-
+     
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Created);
-            responseContentResult.Should().Be("New user Lorem Ipsum created");
         }
 
         [Fact]
@@ -48,10 +45,9 @@ namespace TestsAPI.Application.UnitTests
              
             //Act
             var returnedPlayer = playerController.FindPlayerById(convertedId);
-            var okObjectResult = returnedPlayer as OkObjectResult;
 
             //Assert
-            okObjectResult.Value.Should().Be(player);
+            returnedPlayer.ToJson().Should().Contain(convertedId);
         }
 
         [Fact]
@@ -71,10 +67,9 @@ namespace TestsAPI.Application.UnitTests
 
             //Act
             var returnedPlayer = playerController.FindPlayerByUsername(nameSearched);
-            var okObjectResult = returnedPlayer as OkObjectResult;
 
             //Assert
-            okObjectResult.Value.Should().Be(player);
+            returnedPlayer.ToJson().Should().Contain(bsonObjectId.ToString());
         }
 
         [Fact]

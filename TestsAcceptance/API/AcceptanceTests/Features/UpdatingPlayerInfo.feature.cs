@@ -95,13 +95,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void AddingANewGame()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding a new game", ((string[])(null)));
-#line 9
+#line 8
 this.ScenarioSetup(scenarioInfo);
-#line 10
+#line 9
  testRunner.Given("I make a call to the API with new game data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 11
+#line 10
  testRunner.Then("the winning player increments their win total by one", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 12
+#line 11
  testRunner.And("the losing player increments their losss total by one", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

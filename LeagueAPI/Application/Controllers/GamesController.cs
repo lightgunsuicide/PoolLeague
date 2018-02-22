@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using LeagueAPI.Application.Dtos;
-using LeagueAPI.Application.Dtos.Interfaces;
 using LeagueAPI.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 

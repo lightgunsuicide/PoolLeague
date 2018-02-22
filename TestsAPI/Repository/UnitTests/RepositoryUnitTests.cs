@@ -30,7 +30,7 @@ namespace TestsAPI.Repository.UnitTests
             var playerRepo = new PlayerRepository(settingsFixture.settings);
             var playerToAdd = new Player()
             {
-                Name = "Falsum Hominem Et ceteca Et cetera",
+                Name = "falus hominem ex1122",
                 Losses = 0,
                  Wins = 0
             };
