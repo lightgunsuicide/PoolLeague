@@ -14,12 +14,12 @@ namespace LeagueAPI.Domain.Services
             _repository = repository;
         }
 
-        public List<PlayerDto> GetTopTenPlayers()
+        public List<Player> GetTopTenPlayers()
         {
             return _repository.ReturnTopTen();
         }
 
-        public List<PlayerDto> GetAllPlayers()
+        public List<Player> GetAllPlayers()
         {
             return _repository.FindAll();
         }

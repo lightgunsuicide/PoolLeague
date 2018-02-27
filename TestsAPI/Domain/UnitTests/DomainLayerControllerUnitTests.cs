@@ -14,7 +14,7 @@ namespace TestsAPI.Domain.UnitTests
 {
     public class DomainLayerControllerUnitTests
     {
-        private List<PlayerDto> _players;
+        private List<Player> _players;
 
         [Fact]
         public void RetrieveTopTen()
@@ -33,7 +33,7 @@ namespace TestsAPI.Domain.UnitTests
             var okObjectResult = returnedTopTen as OkObjectResult;
 
             //Assert
-            okObjectResult.Value.Should().Be(displayResults);
+            okObjectResult.Value.ToString().Should().Contain(displayResults[0].Id.ToString());
         }
     }
 }

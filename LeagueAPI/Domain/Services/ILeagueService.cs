@@ -9,7 +9,7 @@ namespace LeagueAPI.Domain.Services
 {
     public interface ILeagueService
     {
-        List<PlayerDto> GetTopTenPlayers();
-        List<PlayerDto> GetAllPlayers();
+        List<Player> GetTopTenPlayers();
+        List<Player> GetAllPlayers();
     }
 }

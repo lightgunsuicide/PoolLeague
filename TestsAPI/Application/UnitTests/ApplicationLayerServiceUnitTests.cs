@@ -56,7 +56,7 @@ namespace TestsAPI.Application.UnitTests
             var id = new ObjectId();
             var uniqueId = new BsonObjectId(id);
 
-            var playerToFind = new PlayerDto()
+            var playerToFind = new Player()
             {
                 Id = uniqueId,
                 Name = "Falsum Hominem",
@@ -81,7 +81,7 @@ namespace TestsAPI.Application.UnitTests
         public void SearchForPlayerByUsername()
         {
             //Arrange
-            var playerToFind = new PlayerDto()
+            var playerToFind = new Player()
             {
                 Name = "Falsum Hominem",
                 Losses = 1,
@@ -108,7 +108,7 @@ namespace TestsAPI.Application.UnitTests
             var id = new ObjectId();
             var uniqueId = new BsonObjectId(id);
 
-            var playerOne = new PlayerDto()
+            var playerOne = new Player()
                 {
                     Id = uniqueId,
                     Name = "Falsum Hominem",

@@ -24,12 +24,9 @@ namespace TestsAPI.Application.UnitTests
 
             //Act
             var response = playerController.AddPlayer(username);
-            var responseContent = response.Content;
-            var responseContentResult = responseContent.ReadAsStringAsync().Result;
-
+     
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Created);
-            responseContentResult.Should().Be("New user Lorem Ipsum created");
         }
 
         [Fact]
@@ -39,7 +36,7 @@ namespace TestsAPI.Application.UnitTests
             var plainObjectId = new ObjectId();
             var bsonObjectId = new BsonObjectId(plainObjectId);
             var convertedId = bsonObjectId.ToString();
-            var player = new PlayerDto(){ Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8};
+            var player = new Player(){ Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8};
 
             var mockService = new Mock<IPlayerService>();
             mockService.Setup(x => x.SearchById(bsonObjectId)).Returns(player);
@@ -48,10 +45,9 @@ namespace TestsAPI.Application.UnitTests
              
             //Act
             var returnedPlayer = playerController.FindPlayerById(convertedId);
-            var okObjectResult = returnedPlayer as OkObjectResult;
 
             //Assert
-            okObjectResult.Value.Should().Be(player);
+            returnedPlayer.ToJson().Should().Contain(convertedId);
         }
 
         [Fact]
@@ -61,7 +57,7 @@ namespace TestsAPI.Application.UnitTests
             var plainObjectId = new ObjectId();
             var bsonObjectId = new BsonObjectId(plainObjectId);
 
-            var player = new PlayerDto() { Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8 };
+            var player = new Player() { Id = bsonObjectId, Name = "Lorem Ipsum", Losses = 4, Wins = 8 };
             var nameSearched = "Lorem Ipsum";
 
             var mockService = new Mock<IPlayerService>();
@@ -71,10 +67,9 @@ namespace TestsAPI.Application.UnitTests
 
             //Act
             var returnedPlayer = playerController.FindPlayerByUsername(nameSearched);
-            var okObjectResult = returnedPlayer as OkObjectResult;
 
             //Assert
-            okObjectResult.Value.Should().Be(player);
+            returnedPlayer.ToJson().Should().Contain(bsonObjectId.ToString());
         }
 
         [Fact]

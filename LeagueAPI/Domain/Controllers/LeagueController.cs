@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LeagueAPI.Domain.Services;
+﻿using LeagueAPI.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
-
+using MongoDB.Bson;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace LeagueAPI.Controllers
@@ -21,9 +17,11 @@ namespace LeagueAPI.Controllers
         }
 
         [HttpGet("/top10")]
-        public ActionResult GetTopTen()
-        {
-            return Ok(_leagueService.GetTopTenPlayers());
+        public ActionResult GetTopTen() {
+            var topTenPlayers = _leagueService.GetTopTenPlayers();
+            var bsonPlayers = topTenPlayers.ToJson();
+
+            return Ok(bsonPlayers);
         }
 
         [HttpGet("/all")]

@@ -28,9 +28,9 @@ namespace TestsAPI.Repository.UnitTests
         public void AddPlayer() {
             //Arrange
             var playerRepo = new PlayerRepository(settingsFixture.settings);
-            var playerToAdd = new PlayerDto()
+            var playerToAdd = new Player()
             {
-                Name = "Falsum Hominem Et ceteca Et cetera",
+                Name = "falus hominem ex1122",
                 Losses = 0,
                  Wins = 0
             };
