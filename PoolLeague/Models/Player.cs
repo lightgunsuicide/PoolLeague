@@ -7,7 +7,7 @@ namespace PoolLeague.Models
 {
     public class Player
     {
-        public Guid playerId { get; set; }
+        public ObjectId playerId { get; set; }
         public int GamesPlayed { get; set; }
         public int Wins { get; set; }
         public int Losses { get; set; }
